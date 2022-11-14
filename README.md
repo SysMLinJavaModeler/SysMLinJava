@@ -92,13 +92,14 @@ public class TrafficSignalSystem extends SysMLBlock
 
 The example shows a block representation of a simple traffic signal system. The system block is an extension of the SysMLBlock. Its properties include:
 
-ports declared as fields annotated as full ports and of types extended from SysMLFullPort
-values declared as fields annotated as values and of types (all provided as part of the SysMLinJava MDK) extended from SysMLValueType
-state machine declared as a field in the SysMLBlock annotated as a state machine and of type extended from SysMLStateMachine
-problem declared as field annotated as a problem and of type SysMLProblem
-requirement declared as field annotated as a requirement and of type SysMLRequirement
-operations declared as methods annotated as operations and defining the activity performed
-The SysMLBlock also declares a number of "create..." methods. While not properties of the block, per se, the methods perform all the creations/initializations of the block's properties, i.e. initialization of the values, creation of the ports, etc. These creation/initialization methods are invoked automatically by the SysMLBlock 's constructor, so the modeler need only add the property initialization statements to the appropriate create... method and the properties will be initialized in the correct sequence as part of block construction.
+- ports declared as fields annotated as full ports and of types extended from SysMLFullPort
+- values declared as fields annotated as values and of types (all provided as part of the SysMLinJava MDK) extended from SysMLValueType
+- state machine declared as a field in the SysMLBlock annotated as a state machine and of type extended from SysMLStateMachine
+- problem declared as field annotated as a problem and of type SysMLProblem
+- requirement declared as field annotated as a requirement and of type SysMLRequirement
+- operations declared as methods annotated as operations and defining the activity performed
+
+The SysMLBlock also declares a number of overridden "create..." methods. While not properties of the block, per se, the methods perform all the creations/initializations of the block's properties, i.e. initialization of the values, creation of the ports, etc. These creation/initialization methods are invoked automatically by the SysMLBlock's constructor, so the modeler need only add the property initialization statements to the appropriate "create..." method and the properties will be initialized in the correct sequence as part of block construction.
 
 Although it is not explicitly shown in the example, the system model block is executable. Higher-level model elements, e.g. domain objects, can invoke the system block's "start" operation which executes the block's state machine behavior in a dedicated Java thread. This state machine then receives and responds to events that might be submitted to it by its ports, by other blocks, and/or by operations/receptions of the block itself. In any case, this structural and behavioral model of a system can be made as complex and precise as is needed while being fully executable and in accordance with the SysML standard.
 
