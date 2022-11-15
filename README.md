@@ -23,7 +23,7 @@ public class TrafficSignalSystem extends SysMLBlock
 	@FullPort
 	public EVDetectionReceivePort evDetectionReceiver;
 	@FullPort
-	public SystemStatusTransmitPort systemStatusTransmitter;
+	public SignalStatesTransmitPort systemStateTransmitter;
 	
 	@Value
 	public SignalStatesEnum eastBound;
@@ -55,6 +55,8 @@ public class TrafficSignalSystem extends SysMLBlock
 	
 	public TrafficSignalSystem(String name, Long id){...}
 
+	@Reception
+	public void onPhaseTime(){...}
 	@Reception
 	public void onTimeSynch(){...}
 	@Reception
@@ -128,10 +130,10 @@ SysMLinJava also supports virtually all of the features of SysMLv2.  You can see
 
 ## How it works
 ### The SysMLinJava module
-SysMLinJava is a java API that can be added as a project or library in an IDE used to develop a SysMLinJava model.  Typically, the modeler will create a project in the IDE with the SysMLinJava module as its sole content.  Another project will be created/used for the SysMLinJava model with a "requires transitive" dependency on the SysMLinJava module.
+SysMLinJava is a java API that can be added as a project in an IDE.  It is a java module that can be used by other IDE projects to develop SysMLinJava models.  Typically, the modeler will create a project in the IDE with the SysMLinJava module as its sole content.  Another project will be created/used for the SysMLinJava model with a "requires transitive" dependency on the SysMLinJava module.
 
 ### SysMLinJava modeling
-The modeler will typically develop the system model in an IDE project.  Model elements will be constructed as java classes that inherit/extend one of the SysMLinJava classes, e.g. SysMLBlock, StateMachine, SysMLValueType, SysMLFullPort, etc.  The model elements will be aggregated in a "domain" class that contains all elements of the domain such as the system of interest as well as all the other systems with which it interfaces.  Alternatively, the domain class could be replaced by a SysMLTest and/or SysMLTestCase class that constructs and executes the model as a SysML test/test case.  In either case, the SysMLinJava model classes are compiled and linked into an executable process or processes, each potentiallly executing as multiple threads representing asynchronously behaving objects in the system and its domain.
+The modeler will typically develop the system model in an IDE project.  Model elements will be constructed as java classes that inherit/extend one of the SysMLinJava classes, e.g. SysMLBlock, StateMachine, SysMLValueType, SysMLFullPort, etc.  The model elements will be aggregated in a "domain" class that contains all elements as SysML "parts" of the domain such as the system of interest as well as all the other systems with which it interfaces.  Alternatively, the domain class could be replaced by a SysMLTest and/or SysMLTestCase class that constructs and executes the model as a SysML test/test case.  In either case, the SysMLinJava model classes are compiled and linked into an executable process or processes, each potentiallly executing as multiple threads representing asynchronously behaving objects in the system and its domain.
 
 ### Parametric Analysis
 Extensive capabilities for parametric analysis are also supported by the SysMLinJava API.  The SysMLConstraintBlock provides a base class for all constraint block modeling in SysMLinJava.  The constraint block supports "bound" constraint parameters as well as contraint block heirarchies.  In addition, the constraint block can be configured to operate asynchronously enabling extensive parameteric analysis with parameters that update asychrounously from other bound parameters and from the constraint block.
