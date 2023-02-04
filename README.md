@@ -140,7 +140,7 @@ The modeler will typically develop the system model in an IDE project.  Model el
 Extensive capabilities for parametric analysis are also supported by the SysMLinJava API.  The `SysMLConstraintBlock` provides a base class for all constraint block modeling in SysMLinJava.  The constraint block supports "bound" constraint parameters as well as contraint block heirarchies.  In addition, the constraint block can be configured to operate asynchronously enabling extensive parameteric analysis with parameters that update asychrounously from other bound parameters and from the constraint block.
 
 ## Documentation
-The SysMLinJava code includes full javadoc comments, which you can view in the code.  You can execute the javadoc program against the code (via your IDE) to generate the javadoc as web pages, if desired.
+The SysMLinJava code includes full javadoc comments, which you can view in the code.  And a zip file of the full javadocs is provided at the base of the master branch.  Of course, you can execute the javadoc program against the code (e.g. via your IDE) to generate the javadoc as a directory of web pages, if desired.
 
 ## Dependencies and License
 SysMLinJava uses the Apache license as shown above.  It has no dependencies beyond the modules of the Java SDK itself.  This version of SysMLinJava has been successfully tested and used on OpenJDK 18.
