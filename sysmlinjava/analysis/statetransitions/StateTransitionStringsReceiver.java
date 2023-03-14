@@ -21,7 +21,7 @@ public class StateTransitionStringsReceiver extends UDPReceiver
 	 */
 	public StateTransitionStringsReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "StateTransitionStringsReceiver");
 	}
 
 //	@Override

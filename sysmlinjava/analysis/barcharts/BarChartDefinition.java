@@ -42,6 +42,8 @@ public class BarChartDefinition implements Serializable
 	public ArrayList<String> layerNames;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param barChartID ID of the chart (used to associate data received with the
 	 *                   chart)
 	 * @param catAxis    category (bar) axis

@@ -26,6 +26,8 @@ public class NeuralNetDisplayData extends SysMLValueType implements Serializable
 	public NeuralNetDataSet dataSet;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param displayID ID of the display
 	 * @param dataSet   Data set for one input set and its corresponsing output set
 	 *                  of neurons

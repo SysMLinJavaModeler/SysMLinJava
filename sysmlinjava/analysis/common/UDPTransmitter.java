@@ -46,6 +46,10 @@ public class UDPTransmitter<T>
 	 * Object stream that encapsulates the object
 	 */
 	ObjectOutputStream objectStream;
+	/**
+	 * String name for this socket
+	 */
+	String socketName;
 
 	/**
 	 * Constructor, which creates the socket
@@ -58,17 +62,19 @@ public class UDPTransmitter<T>
 	 *                     greater the CPU resources are needed. This can cause
 	 *                     noticable slowing of the console display and related
 	 *                     applications.
+	 * @param socketName unique name for this transmitter's socket, e.g. Bar Chart, HTML Display
 	 */
-	public UDPTransmitter(int udpPort, boolean logToConsole)
+	public UDPTransmitter(int udpPort, boolean logToConsole, String socketName)
 	{
 		super();
 		logger = Logger.getLogger(this.getClass().getSimpleName());
 		this.udpPort = udpPort;
 		this.logToConsole = logToConsole;
+		this.socketName = socketName;
 		try
 		{
 			socket = new DatagramSocket();
-			logger.info("socket opened, transmitting via UDP port: " + this.udpPort);
+			logger.info(String.format("%s socket opened, transmitting via UDP port: %d", socketName, udpPort));
 		} catch (SocketException e)
 		{
 			e.printStackTrace();
@@ -105,6 +111,6 @@ public class UDPTransmitter<T>
 	public void stop()
 	{
 		socket.close();
-		logger.info("socket closed");
+		logger.info(String.format("%s socket closed for UDP port: %d", socketName, udpPort));
 	}
 }

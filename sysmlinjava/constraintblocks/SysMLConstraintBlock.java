@@ -176,9 +176,10 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 	}
 
 	/**
-	 * Reacts to notification by a bound parameter (which is an
-	 * {@code ObservableValue}) that the observed parameter value has changed. This
-	 * emulates the SysML's "binding connector" for a constraint parameter.
+	 * Reacts to notification by a bound parameter or constraint block (which is an
+	 * {@code ObservableValue}) that the observed parameter value or constraint
+	 * block has changed. This emulates the capability of SysML's "binding
+	 * connector" for a constraint parameter or constraint block.
 	 * 
 	 * @param paramID unique ID of the constraint parameter whose value changed.
 	 */
@@ -199,9 +200,11 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 	}
 
 	/**
-	 * Reacts to notification by a bound parameter (which is an
-	 * {@code ObservableValue}) that the observed parameter value has changed. This
-	 * emulates the SysML's "binding connector" for a constraint parameter.
+	 * Reacts to notification by a bound parameter or constraint block (which is an
+	 * {@code ObservableValue}) that the observed parameter value or constraint
+	 * block has changed. This emulates the capability of SysML's "binding
+	 * connector" for a constraint parameter or constraint block.
+	 * 
 	 */
 	@Override
 	public void valueChanged()
@@ -240,7 +243,7 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 				if (boundParam != null)
 				{
 					currentParam = boundParam;
-					constraintParams.put(currentParamID.get(), currentParam);
+					updateBoundParam(paramID, currentParam);
 				}
 				else
 					logger.severe("bound parameter value not retrieved from its bound parameter port: " + paramID);
@@ -250,6 +253,21 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 		}
 		else
 			currentParamID = Optional.empty();
+	}
+
+	/**
+	 * Overridable operation to set the constraint parameter value for the changed
+	 * parameter. This default operation simply replaces the parameter instance in
+	 * the {@code constraintParams} map with the changed parameter instance. This
+	 * operation can/should be overridden if constraint parameter instances are used
+	 * outside the {@code constraintParams} map.
+	 * 
+	 * @param paramID      ID of the changed parameter
+	 * @param currentParam instance of the currently changed parameter
+	 */
+	protected void updateBoundParam(String paramID, SysMLValueType currentParam)
+	{
+		constraintParams.put(currentParamID.get(), currentParam);
 	}
 
 	/**
@@ -272,8 +290,8 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 	 * <pre>
 	 * {@code
 	 * {
-	 * 	constraint.calculate();
-	 * 	additionalConstraint.calculate();
+	 *     constraint.calculate();
+	 * 	   additionalConstraint.calculate();
 	 * }
 	 * }
 	 * </pre>
@@ -431,11 +449,11 @@ public abstract class SysMLConstraintBlock extends SysMLBlock implements Observa
 	 * <pre>
 	 * {@code
 	 * {
-	 * 	paramAPort = new SysMLConstraintParameterPort(this, paramABindingFunction, "paramA");
-	 * 	paramBPort = new SysMLConstraintParameterPort(this, paramBBindingFunction, "paramB");
+	 * 	   paramAPort = new SysMLConstraintParameterPort(this, paramABindingFunction, "paramA");
+	 * 	   paramBPort = new SysMLConstraintParameterPort(this, paramBBindingFunction, "paramB");
 	 * 
-	 * 	paramPorts.put("paramA", paramAPort);
-	 * 	paramPorts.put("paramB", paramBPort);
+	 * 	   paramPorts.put("paramA", paramAPort);
+	 * 	   paramPorts.put("paramB", paramBPort);
 	 * }
 	 * }
 	 * </pre>

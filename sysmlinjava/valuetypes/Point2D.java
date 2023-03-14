@@ -1,6 +1,10 @@
 package sysmlinjava.valuetypes;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 import java.io.Serializable;
+import sysmlinjava.annotations.Operation;
 import sysmlinjava.units.SysMLinJavaUnits;
 
 /**
@@ -21,13 +25,10 @@ import sysmlinjava.units.SysMLinJavaUnits;
  * @author ModelerOne
  *
  */
-/**
- * @author ModelerOne
- *
- */
 public class Point2D extends SysMLValueType implements Serializable
 {
-	/** Serializable ID*/private static final long serialVersionUID = 790350123208690812L;
+	/** Serializable ID */
+	private static final long serialVersionUID = 790350123208690812L;
 
 	/**
 	 * x-value of the Point2D
@@ -148,6 +149,17 @@ public class Point2D extends SysMLValueType implements Serializable
 	}
 
 	/**
+	 * Scales (multiplies) this point by the specified value
+	 * 
+	 * @param multipliedBy value to multiply this by
+	 */
+	public void scale(double multipliedBy)
+	{
+		xValue *= multipliedBy;
+		yValue *= multipliedBy;
+	}
+
+	/**
 	 * Returns whether or not this point is within rectangle having specifed
 	 * upper-right and lower-left corners where right/left is x and upper/lower is
 	 * y.
@@ -174,6 +186,72 @@ public class Point2D extends SysMLValueType implements Serializable
 			return xValue <= upperRightCorner.xValue && xValue > lowerLeftCorner.xValue && yValue <= upperRightCorner.yValue && yValue > lowerLeftCorner.yValue;
 		else
 			return xValue <= upperRightCorner.xValue && xValue >= lowerLeftCorner.xValue && yValue <= upperRightCorner.yValue && yValue >= lowerLeftCorner.yValue;
+	}
+
+	/**
+	 * Constant value for 90 degrees in radians
+	 */
+	static final double rad90 = 0.5 * PI;
+	/**
+	 * Constant value for 180 degrees in radians
+	 */
+	static final double rad180 = 1.0 * PI;
+	/**
+	 * Constant value for 270 degrees in radians
+	 */
+	static final double rad270 = 1.5 * PI;
+	/**
+	 * Constant value for 360 degrees in radians
+	 */
+	static final double rad360 = 2.0 * PI;
+
+	/**
+	 * Returns a new point that is this point moved at the specified direction for
+	 * the specified distance (length).
+	 * 
+	 * @param lengthNumeric    numeric (no units of) length of vector
+	 * @param directionRadians radian direction of vector
+	 * 
+	 * @return point for this point moved specified length and direction
+	 */
+	@Operation
+	public Point2D moved(double lengthNumeric, double directionRadians)
+	{
+		double xDelta = 0;
+		double yDelta = 0;
+
+		if (directionRadians < rad90)
+		{
+			xDelta = cos(rad90 - directionRadians) * lengthNumeric;
+			yDelta = sin(rad90 - directionRadians) * lengthNumeric;
+		}
+		else if (directionRadians < rad180)
+		{
+			xDelta = sin(rad180 - directionRadians) * lengthNumeric;
+			yDelta = -(cos(rad180 - directionRadians) * lengthNumeric);
+		}
+		else if (directionRadians < rad270)
+		{
+			xDelta = -(cos(rad270 - directionRadians) * lengthNumeric);
+			yDelta = -(sin(rad270 - directionRadians) * lengthNumeric);
+		}
+		else if (directionRadians < rad360)
+		{
+			xDelta = -(sin(rad360 - directionRadians) * lengthNumeric);
+			yDelta = cos(rad360 - directionRadians) * lengthNumeric;
+		}
+		return new Point2D(xValue + xDelta, yValue + yDelta);
+	}
+
+	/**
+	 * Return an instance that is this multiplied by the specified value
+	 * 
+	 * @param multipliedBy value to multiply this by
+	 * @return instance that is this multiplied by the specified value
+	 */
+	public Point2D scaled(double multipliedBy)
+	{
+		return new Point2D(xValue * multipliedBy, yValue * multipliedBy);
 	}
 
 	/**
@@ -207,7 +285,20 @@ public class Point2D extends SysMLValueType implements Serializable
 	@Override
 	public String toString()
 	{
-		return String.format("Point2D [xValue=%,f, yValue=%,f]", xValue, yValue);
+		StringBuilder builder = new StringBuilder();
+		builder.append("Point2D [xValue=");
+		builder.append(xValue);
+		builder.append(", yValue=");
+		builder.append(yValue);
+		builder.append(", isEmpty=");
+		builder.append(isEmpty);
+		builder.append(", units=");
+		builder.append(units);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
 	}
-
 }

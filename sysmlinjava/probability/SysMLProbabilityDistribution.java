@@ -75,4 +75,18 @@ public abstract class SysMLProbabilityDistribution extends SysMLClass
 	{
 		return random.nextDouble();
 	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("SysMLProbabilityDistribution [distributionName=");
+		builder.append(distributionName);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
+	}
 }

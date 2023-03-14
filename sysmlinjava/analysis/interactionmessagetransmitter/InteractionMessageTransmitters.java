@@ -14,14 +14,13 @@ import sysmlinjava.ports.SysMLProxyPort;
  * {@code InteractionMessageTransmitters} enable the transmission from the
  * simulation to an interaction sequence display (sequence diagram) of the
  * interaction messages that occur during the simulation. This implmentation of
- * the {@code SysMLFullPort's}
- * {@code InteractionMessageUtility} enables a grapical display of
- * the real-time sequence diagram of the interactions between the specified
- * parts of the model throughout the simulation.
-<p>
+ * the {@code SysMLFullPort's} {@code InteractionMessageUtility} enables a
+ * grapical display of the real-time sequence diagram of the interactions
+ * between the specified parts of the model throughout the simulation.
+ * <p>
  * The {@code InteractionMessageTransmitters} must be created and assigned to
  * the {@code messageUtility} variable of the {@code SysMLFullPort} class to
- * perform its function. This creation/assignment should performed in an
+ * perform its function. This creation/assignment should be performed in an
  * overridden version of the {@code SysMLFullPort}'s {@code
  * createInteractionMessageUtility()} operation.
  * 
@@ -33,11 +32,16 @@ import sysmlinjava.ports.SysMLProxyPort;
 public class InteractionMessageTransmitters implements InteractionMessageUtility
 {
 	/**
-	 * A transmitter of interaction message text to UDP port for possible
-	 * display and/or storage of this port's transmissions occuring
-	 * during model execution.
+	 * A transmitter of interaction message text to UDP port for possible display
+	 * and/or storage of this port's transmissions occuring during model execution.
 	 */
 	private InteractionMessageTransmitter interactionMessageTransmitter;
+	/**
+	 * Indication if the strings that represent the state transitions are to be
+	 * logged to the console. If true, strings are logged to console, otherwise they
+	 * are not.
+	 */
+	private boolean logToConsole;
 
 	/**
 	 * Constructor
@@ -47,11 +51,17 @@ public class InteractionMessageTransmitters implements InteractionMessageUtility
 	 *                                      that is to perform the transmission of
 	 *                                      the interaction message to an
 	 *                                      {@code InteractionMessageReceiver}.
+	 * @param logToConsole                  indication if the strings that represent
+	 *                                      the state transitions are to be logged
+	 *                                      to the console. If true, strings are
+	 *                                      logged to console, otherwise they are
+	 *                                      not.
 	 */
-	public InteractionMessageTransmitters(InteractionMessageTransmitter interactionMessageTransmitter)
+	public InteractionMessageTransmitters(InteractionMessageTransmitter interactionMessageTransmitter, boolean logToConsole)
 	{
 		super();
 		this.interactionMessageTransmitter = interactionMessageTransmitter;
+		this.logToConsole = logToConsole;
 	}
 
 	/**
@@ -64,7 +74,8 @@ public class InteractionMessageTransmitters implements InteractionMessageUtility
 	public void perform(Instant time, SysMLBlock contextBlock, SysMLSignal messageSignal, SysMLFullPort peerPort, Logger logger)
 	{
 		InteractionMessageStrings strings = new InteractionMessageStrings(time, contextBlock, messageSignal, peerPort);
-		logger.info(strings.logString());
+		if (logToConsole)
+			logger.info(strings.logString());
 		interactionMessageTransmitter.transmit(strings);
 	}
 
@@ -78,7 +89,8 @@ public class InteractionMessageTransmitters implements InteractionMessageUtility
 	public void perform(Instant time, SysMLBlock contextBlock, String message, SysMLProxyPort peerPort, Logger logger)
 	{
 		InteractionMessageStrings strings = new InteractionMessageStrings(time, contextBlock, message, peerPort);
-		logger.info(strings.logString());
+		if (logToConsole)
+			logger.info(strings.logString());
 		interactionMessageTransmitter.transmit(strings);
 	}
 

@@ -55,6 +55,17 @@ public class DurationMilliseconds extends IInteger
 	}
 
 	/**
+	 * Returns instance with specified seconds as initial value
+	 * 
+	 * @param seconds DurationSeconds to be used as initial value
+	 * @return instance of duration in milliseconds for specified seconds
+	 */
+	public static DurationMilliseconds of(DurationSeconds seconds)
+	{
+		return new DurationMilliseconds((long)seconds.value * 1000);
+	}
+
+	/**
 	 * Returns {@code DurationMilliseconds} between two InstantMilliseconds
 	 * instances
 	 * 

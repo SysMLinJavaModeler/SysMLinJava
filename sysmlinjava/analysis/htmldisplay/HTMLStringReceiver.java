@@ -21,7 +21,7 @@ public class HTMLStringReceiver extends UDPReceiver
 	 */
 	public HTMLStringReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "HTMLStringReceiver");
 	}
 
 	@Override

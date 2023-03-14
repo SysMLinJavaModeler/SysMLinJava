@@ -238,8 +238,18 @@ public class DirectionDegrees extends RReal
 	}
 
 	@Override
-	public java.lang.String toString()
+	public String toString()
 	{
-		return java.lang.String.format("DirectionDegrees [value=%s(%s), units=%s]", value, Math.toRadians(value), units.symbol);
+		StringBuilder builder = new StringBuilder();
+		builder.append("DirectionDegrees [value=");
+		builder.append(value + "(" + Math.toRadians(value) + ")");
+		builder.append(", units=");
+		builder.append(units);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
 	}
 }

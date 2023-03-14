@@ -21,7 +21,7 @@ public class ScatterPlotsReceiver extends UDPReceiver
 	 */
 	public ScatterPlotsReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "ScatterPlotsReceiver");
 	}
 
 	@Override

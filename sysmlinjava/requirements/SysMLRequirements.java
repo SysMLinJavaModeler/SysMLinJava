@@ -100,7 +100,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;decomposedBy&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<decomposedBy>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -120,7 +120,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;decompositionOf&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<decompositionOf>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -140,7 +140,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;containedBy&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<containedBy>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -157,7 +157,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;copyOf&gt;&gt;} dependencies between requirements, e.g.
+	 * Creates the SysML {@code <<copyOf>>} dependencies between requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -173,7 +173,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;containeds&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<containeds>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -193,7 +193,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;satisfiedBy&gt;&gt;} dependencies of requirements, e.g.
+	 * Creates the SysML {@code <<satisfiedBy>>} dependencies of requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -209,7 +209,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;refinedBy&gt;&gt;} dependencies of requirements, e.g.
+	 * Creates the SysML {@code <<refinedBy>>} dependencies of requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -225,7 +225,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;tracedTo&gt;&gt;} dependencies of requirements, e.g.
+	 * Creates the SysML {@code <<tracedTo>>} dependencies of requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -241,7 +241,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;tracedFrom&gt;&gt;} dependencies of requirements, e.g.
+	 * Creates the SysML {@code <<tracedFrom>>} dependencies of requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -257,7 +257,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;verifiedBy&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<verifiedBy>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -274,7 +274,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;copiedBy&gt;&gt;} dependencies between requirements, e.g.
+	 * Creates the SysML {@code <<copiedBy>>} dependencies between requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -290,7 +290,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;derivedBy&gt;&gt;} dependencies between requirements, e.g.
+	 * Creates the SysML {@code <<derivedBy>>} dependencies between requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -306,7 +306,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;derivedFrom&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<derivedFrom>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -325,7 +325,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;master&gt;&gt;} dependencies between requirements, e.g.
+	 * Creates the SysML {@code <<master>>} dependencies between requirements, e.g.
 	 * 
 	 * <pre>
 	 * {@code
@@ -340,7 +340,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;specialization&gt;&gt;} dependencies between requirements,
+	 * Creates the SysML {@code <<specialization>>} dependencies between requirements,
 	 * e.g.
 	 * 
 	 * <pre>
@@ -355,7 +355,7 @@ public abstract class SysMLRequirements extends SysMLClass
 	}
 
 	/**
-	 * Creates the SysML {@code &lt;&lt;supportingInformation&gt;&gt;} dependencies of
+	 * Creates the SysML {@code <<supportingInformation>>} dependencies of
 	 * requirements, e.g.
 	 * 
 	 * <pre>

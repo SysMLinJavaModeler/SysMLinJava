@@ -75,6 +75,8 @@ public abstract class LineChartsConstraintBlock extends SysMLConstraintBlock
 	private LineChartsTransmitter chartTransmitter;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param chartDefinition definition of the line chart in terms of its axes,
 	 *                        lines, title, etc.
 	 * @param udpPort         UDP port to which the line chart data is to be

@@ -70,7 +70,9 @@ public abstract class SysMLValueType extends SysMLClass implements ObservableVal
 	{
 		super();
 		observers = new ArrayList<>();
+
 		createUnits();
+		createProbabilityDistribution();
 		createRequirements();
 		createDependencies();
 	}
@@ -86,6 +88,10 @@ public abstract class SysMLValueType extends SysMLClass implements ObservableVal
 		units = copied.units;
 		observers = new ArrayList<>(copied.observers);
 		probabilityDistribution = copied.probabilityDistribution;
+
+		createUnits();
+		createRequirements();
+		createDependencies();
 	}
 
 	/**
@@ -98,6 +104,10 @@ public abstract class SysMLValueType extends SysMLClass implements ObservableVal
 		super();
 		observers = new ArrayList<>();
 		probabilityDistribution = Optional.of(distribution);
+
+		createUnits();
+		createRequirements();
+		createDependencies();
 	}
 
 	/**
@@ -154,6 +164,15 @@ public abstract class SysMLValueType extends SysMLClass implements ObservableVal
 	 * @see sysmlinjava.units.SysMLinJavaUnits
 	 */
 	protected abstract void createUnits();
+
+	/**
+	 * Overridable operation to create the probability distribution of the values of
+	 * this valueType.
+	 */
+	protected void createProbabilityDistribution()
+	{
+		probabilityDistribution = Optional.empty();
+	}
 
 	@Override
 	protected void createAttributes()

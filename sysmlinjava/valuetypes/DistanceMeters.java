@@ -67,8 +67,8 @@ public class DistanceMeters extends RReal
 	public DistanceMeters()
 	{
 		super(0);
-	}
-
+	}	
+	
 	/**
 	 * Returns whether or not this distance is between (in range of) the specified
 	 * distances

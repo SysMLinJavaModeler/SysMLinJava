@@ -74,12 +74,12 @@ public abstract class SysMLAbstractRequirement extends SysMLClass
 	 * List of requirements that are derived from this requirement
 	 */
 	@Dependency
-	public List<SysMLAbstractRequirement> derivedBy;
+	public List<? extends SysMLAbstractRequirement> derivedBy;
 	/**
 	 * List of requirements that this requirement is derived from
 	 */
 	@Dependency
-	public List<SysMLAbstractRequirement> derivedFrom;
+	public List<? extends SysMLAbstractRequirement> derivedFrom;
 	/**
 	 * List of extended classes that are designated to satisfy this requirement
 	 */
@@ -104,7 +104,7 @@ public abstract class SysMLAbstractRequirement extends SysMLClass
 	 * The "master" requirement of which this requirement is a copy
 	 */
 	@Dependency
-	public Optional<SysMLAbstractRequirement> master;
+	public Optional<? extends SysMLAbstractRequirement> master;
 	/**
 	 * URI's to supporting information for this requirement
 	 */

@@ -80,12 +80,12 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	 * Activity performed upon entry to operational state
 	 */
 	@OnEnterActivity
-	public SysMLOnEnterActivity operationalOnEnterActivity;
+	public SysMLOnEnterActivity onEnterOperationalActivity;
 	/**
 	 * Activity performed upon exit from operational state
 	 */
 	@OnExitActivity
-	public SysMLOnExitActivity operationalOnExitActivity;
+	public SysMLOnExitActivity onExitOperationalActivity;
 
 	/**
 	 * Transition from initial to initializing state
@@ -101,43 +101,43 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	 * Transition (internal) for occurence of a time event
 	 */
 	@Transition
-	public SysMLTransition operationalOnTimeEventTransition;
+	public SysMLTransition onTimeEventTransition;
 	/**
 	 * Transition (internal) for occurence of a parameter change event
 	 */
 	@Transition
-	public SysMLTransition operationalOnParameterChangeEventTransition;
+	public SysMLTransition onParameterChangeEventTransition;
 	/**
 	 * Transition from operational to final state
 	 */
 	@Transition
-	public FinalTransition operationalToFinalTransition;
+	public FinalTransition toFinalTransition;
 
 	/**
 	 * Activity to perform upon occurrence of a time event while in operational
 	 * state
 	 */
 	@EffectActivity
-	public SysMLEffectActivity operationalOnTimeEventTransitionEffectActivity;
+	public SysMLEffectActivity onTimeEventTransitionEffectActivity;
 	/**
 	 * Activity to perform upon occurrence of a parameter change event while in
 	 * operational state
 	 */
 	@EffectActivity
-	public SysMLEffectActivity operationalOnParameterChangeEventTransitionEffectActivity;
+	public SysMLEffectActivity onParameterChangeEventTransitionEffectActivity;
 
 	/**
 	 * Effect that performs the activity to perform upon occurrence of a time event
 	 * while in operational state
 	 */
 	@Effect
-	public SysMLEffect operationalOnTimeEventTransitionEffect;
+	public SysMLEffect onTimeEventTransitionEffect;
 	/**
 	 * Effect that performs the activity to perform upon occurrence of a parameter
 	 * change event while in operational state
 	 */
 	@Effect
-	public SysMLEffect operationalOnParameterChangeEventTransitionEffect;
+	public SysMLEffect onParameterChangeEventTransitionEffect;
 
 	/**
 	 * String ID of the timer used to generate time events
@@ -190,7 +190,7 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	protected void createStateOnEnterActivities()
 	{
 		super.createStateOnEnterActivities();
-		operationalOnEnterActivity = (contextBlock) ->
+		onEnterOperationalActivity = (contextBlock) ->
 		{
 			SysMLConstraintBlock constraintBlock = (SysMLConstraintBlock)contextBlock.get();
 			SysMLConstraintBlockStateMachine stateMachine = (SysMLConstraintBlockStateMachine)constraintBlock.stateMachine.get();
@@ -208,7 +208,7 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	protected void createStateOnExitActivities()
 	{
 		super.createStateOnExitActivities();
-		operationalOnExitActivity = (contextBlock) ->
+		onExitOperationalActivity = (contextBlock) ->
 		{
 			SysMLConstraintBlock constraintBlock = (SysMLConstraintBlock)contextBlock.get();
 			SysMLConstraintBlockStateMachine stateMachine = (SysMLConstraintBlockStateMachine)constraintBlock.stateMachine.get();
@@ -222,14 +222,14 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	{
 		super.createStates();
 		initializingState = new SysMLState(contextBlock, Optional.empty(), Optional.empty(), Optional.empty(), "Initializing");
-		operationalState = new SysMLState(contextBlock, Optional.of(operationalOnEnterActivity), Optional.empty(), Optional.of(operationalOnExitActivity), "Operational");
+		operationalState = new SysMLState(contextBlock, Optional.of(onEnterOperationalActivity), Optional.empty(), Optional.of(onExitOperationalActivity), "Operational");
 	}
 
 	@Override
 	protected void createEffectActivities()
 	{
 		super.createEffectActivities();
-		operationalOnParameterChangeEventTransitionEffectActivity = (event, contextBlock) ->
+		onParameterChangeEventTransitionEffectActivity = (event, contextBlock) ->
 		{
 			if (event.isPresent() && event.get() instanceof SysMLParameterChangeEvent)
 			{
@@ -239,7 +239,7 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 				constraintBlock.notifyValueChangeObservers();
 			}
 		};
-		operationalOnTimeEventTransitionEffectActivity = (event, contextBlock) ->
+		onTimeEventTransitionEffectActivity = (event, contextBlock) ->
 		{
 			if (event.isPresent() && event.get() instanceof SysMLTimeEvent)
 			{
@@ -260,8 +260,8 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	protected void createEffects()
 	{
 		super.createEffects();
-		operationalOnParameterChangeEventTransitionEffect = new SysMLEffect(contextBlock, operationalOnParameterChangeEventTransitionEffectActivity, "operationalOnParameterChangeEventTransition");
-		operationalOnTimeEventTransitionEffect = new SysMLEffect(contextBlock, operationalOnTimeEventTransitionEffectActivity, "operationalOnTimeEventTransition");
+		onParameterChangeEventTransitionEffect = new SysMLEffect(contextBlock, onParameterChangeEventTransitionEffectActivity, "operationalOnParameterChangeEventTransition");
+		onTimeEventTransitionEffect = new SysMLEffect(contextBlock, onTimeEventTransitionEffectActivity, "operationalOnTimeEventTransition");
 	}
 
 	@Override
@@ -269,10 +269,10 @@ public class SysMLConstraintBlockStateMachine extends SysMLStateMachine
 	{
 		initialToInitializingTransition = new InitialTransition(contextBlock, initialState, initializingState, "IntialToInitializing");
 		initializingToOperationalTransition = new SysMLTransition(contextBlock, initializingState, operationalState, "InitializingToOperational");
-		operationalOnTimeEventTransition = new SysMLTransition(contextBlock, operationalState, operationalState, Optional.of(SysMLTimeEvent.class), Optional.empty(), Optional.of(operationalOnTimeEventTransitionEffect),
+		onTimeEventTransition = new SysMLTransition(contextBlock, operationalState, operationalState, Optional.of(SysMLTimeEvent.class), Optional.empty(), Optional.of(onTimeEventTransitionEffect),
 			"OperationalOnTimeEvent", SysMLTransitionKind.internal);
-		operationalOnParameterChangeEventTransition = new SysMLTransition(contextBlock, operationalState, operationalState, Optional.of(SysMLParameterChangeEvent.class), Optional.empty(),
-			Optional.of(operationalOnParameterChangeEventTransitionEffect), "OperationalOnParameterChangeEvent", SysMLTransitionKind.internal);
-		operationalToFinalTransition = new FinalTransition(contextBlock, operationalState, finalState, "OperationalToFinal");
+		onParameterChangeEventTransition = new SysMLTransition(contextBlock, operationalState, operationalState, Optional.of(SysMLParameterChangeEvent.class), Optional.empty(),
+			Optional.of(onParameterChangeEventTransitionEffect), "OperationalOnParameterChangeEvent", SysMLTransitionKind.internal);
+		toFinalTransition = new FinalTransition(contextBlock, operationalState, finalState, "OperationalToFinal");
 	}
 }

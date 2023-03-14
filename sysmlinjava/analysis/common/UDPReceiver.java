@@ -27,26 +27,33 @@ public abstract class UDPReceiver implements Runnable
 	/**
 	 * Port on which the receiver operates, i.e. socket uses to read datagrams
 	 */
-	public int udpPort;
+	int udpPort;
 	/**
 	 * Socket on which the receiver receives datagrams
 	 */
 	public DatagramSocket publicSocket;
 	/**
+	 * String name of this receiver's socket
+	 */
+	String socketName;
+	/**
 	 * Number bytes in datagram packet byte buffer
 	 */
-	public static final int byteBufferSize = 100_000;
+	static final int byteBufferSize = 100_000;
 
+	
 	/**
 	 * Constructor - initial value
 	 * 
 	 * @param udpPort UDP port on which to receive objects in UDP datagrams
+	 * @param socketName unique name for this receiver's socket
 	 */
-	public UDPReceiver(int udpPort)
+	public UDPReceiver(int udpPort, String socketName)
 	{
 		super();
 		logger = Logger.getLogger(this.getClass().getName());
 		this.udpPort = udpPort;
+		this.socketName = socketName;
 	}
 
 	/**
@@ -61,7 +68,7 @@ public abstract class UDPReceiver implements Runnable
 		logger.info("run() started");
 		try (DatagramSocket socket = new DatagramSocket(udpPort))
 		{
-			logger.info("socket opened, receiving on UDP port " + udpPort);
+			logger.info(String.format("%s socket opened, receiving on UDP port: %d", socketName, udpPort));
 			publicSocket = socket;
 			boolean done = false;
 			do
@@ -89,7 +96,7 @@ public abstract class UDPReceiver implements Runnable
 				{
 					if (socket.isClosed() || e.getMessage().toLowerCase().contains("socket closed"))
 					{
-						logger.info("socket closed");
+						logger.info(String.format("%s socket closed for UDP port: ", socketName, udpPort));
 						done = true;
 					}
 					else

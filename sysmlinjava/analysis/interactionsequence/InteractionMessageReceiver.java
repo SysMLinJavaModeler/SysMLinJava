@@ -21,7 +21,7 @@ public class InteractionMessageReceiver extends UDPReceiver
 	 */
 	public InteractionMessageReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "InteractionMessageReceiver");
 	}
 
 	@Override

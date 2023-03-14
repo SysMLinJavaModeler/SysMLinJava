@@ -30,7 +30,7 @@ public class NeuralNetDisplayDefinition extends SysMLValueType implements Serial
 	 */
 	public List<NeuronDisplayDefinition> outputNeuronDefs;
 	/**
-	 * 
+	 * UDP port at which display receives data
 	 */
 	public int udpPort;
 

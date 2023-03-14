@@ -3,7 +3,7 @@ package sysmlinjava.analysis.animatedareadisplay;
 import java.io.Serializable;
 import java.util.ArrayList;
 import sysmlinjava.analysis.common.ColorEnum;
-import sysmlinjava.analysis.common.XYData;
+import sysmlinjava.analysis.common.XY;
 
 /**
  * Representation of a line object in an area display. Contains the parameters
@@ -21,7 +21,7 @@ public class AALine extends AAObject implements Serializable
 	/**
 	 * List of the x,y points to be connected for the line
 	 */
-	public ArrayList<XYData> points;
+	public ArrayList<XY> points;
 	/**
 	 * Color of the line
 	 */
@@ -47,7 +47,7 @@ public class AALine extends AAObject implements Serializable
 	 * @param zOrder order of the line in the layers of objects in the area display.
 	 *               Lower number is closer to viewer.
 	 */
-	public AALine(String uid, Action action, ArrayList<XYData> points, ColorEnum color, Integer width, Integer zOrder)
+	public AALine(String uid, Action action, ArrayList<XY> points, ColorEnum color, Integer width, Integer zOrder)
 	{
 		super(uid, action);
 		switch (action)
@@ -83,7 +83,7 @@ public class AALine extends AAObject implements Serializable
 	 * @param zOrder order of the line in the layers of objects in the area display.
 	 *               Lower number is closer to viewer.
 	 */
-	public void update(Action action, ArrayList<XYData> points, ColorEnum color, Integer width, Integer zOrder)
+	public void update(Action action, ArrayList<XY> points, ColorEnum color, Integer width, Integer zOrder)
 	{
 		this.action = action != null ? action : Action.none;
 		this.points = points;

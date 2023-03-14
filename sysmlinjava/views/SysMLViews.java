@@ -1,10 +1,5 @@
 package sysmlinjava.views;
 
-import java.util.ArrayList;
-import java.util.List;
-import sysmlinjava.annotations.views.Stakeholder;
-import sysmlinjava.annotations.views.View;
-import sysmlinjava.annotations.views.Viewpoint;
 import sysmlinjava.common.SysMLClass;
 
 /**
@@ -29,56 +24,43 @@ import sysmlinjava.common.SysMLClass;
  * <pre>
     public class MyViews extends SysMLViews
     {
-        &#64;Purpose public static final String purposeA = "This is purpose A";
-        &#64;Purpose public static final String purposeB = "This is purpose B";
-        &#64;Purpose public static final String purposeC = "This is purpose C";
-    
-        &#64;Concern public static final String concernA = "This is concern A";
-        &#64;Concern public static final String concernB = "This is concern B";
-        &#64;Concern public static final String concernC = "This is concern C";
-    
-        &#64;Language public static final String languageA = "This is language A";
-        &#64;Language public static final String languageB = "This is language B";
-        &#64;Language public static final String languageC = "This is language C";
-    
-        &#64;Method public static final String methodA = "This is method A";
-        &#64;Method public static final String methodB = "This is method B";
-        &#64;Method public static final String methodC = "This is method C";
-    
-        &#64;Presentation public static final String presentationA = "This is presentation A";
-        &#64;Presentation public static final String presentationB = "This is presentation B";
-        &#64;Presentation public static final String presentationC = "This is presentation C";
-    
-        &#64;Stakeholder
-        public static final SysMLStakeholder stakeholderA = new SysMLStakeholder("StakeholderA", List.of(concernA));
-        &#64;Stakeholder
-        public static final SysMLStakeholder stakeholderB = new SysMLStakeholder("StakeholderB", List.of(concernB));
-        &#64;Stakeholder
-        public static final SysMLStakeholder stakeholderC = new SysMLStakeholder("StakeholderC", List.of(concernB, concernC));
-    
-        &#64;Viewpoint
-        public static final SysMLViewpoint viewpointA = new SysMLViewpoint("ViewpointA", List.of(stakeholderA), purposeA, List.of(concernA), List.of(languageA), List.of(presentationA), List.of(methodA));
-        &#64;Viewpoint
-        public static final SysMLViewpoint viewpointB = new SysMLViewpoint("ViewpointB", List.of(stakeholderB), purposeB, List.of(concernB), List.of(languageB), List.of(presentationB), List.of(methodB));
-        &#64;Viewpoint
-        public static final SysMLViewpoint viewpointC = new SysMLViewpoint("ViewpointC", List.of(stakeholderB, stakeholderC), purposeC, List.of(concernB, concernC), List.of(languageB, languageC), List.of(presentationB, presentationC), List.of(methodB, methodC));
-    
-        &#64;View
-        public static final SysMLView viewA = new SysMLView("ViewA", viewpointA, List.of());
-        &#64;View
-        public static final SysMLView viewB = new SysMLView("ViewB", viewpointB, List.of());
-        &#64;View
-        public static final SysMLView viewC = new SysMLView("ViewC", viewpointC, List.of(viewA, viewB));
+		&#64;Purpose public String purposeA;
+		&#64;Purpose public String purposeB;
+		&#64;Purpose public String purposeC;
+		&#64;Concern public String concernA;
+		&#64;Concern public String concernB;
+		&#64;Concern public String concernC;
+		&#64;Language public String languageA;
+		&#64;Language public String languageB;
+		&#64;Language public String languageC;
+		&#64;Method public String methodA;
+		&#64;Method public String methodB;
+		&#64;Method public String methodC;
+		&#64;Presentation public String presentationA;
+		&#64;Presentation public String presentationB;
+		&#64;Presentation public String presentationC;
+		&#64;Stakeholder public SysMLStakeholder stakeholderA;
+		&#64;Stakeholder public SysMLStakeholder stakeholderB;
+		&#64;Stakeholder public SysMLStakeholder stakeholderC;
+		&#64;Viewpoint public SysMLViewpoint viewpointA;
+		&#64;Viewpoint public SysMLViewpoint viewpointB;
+		&#64;Viewpoint public SysMLViewpoint viewpointC;
+		&#64;View public SysMLView viewA;
+		&#64;View public SysMLView viewB;
+		&#64;View public SysMLView viewC;
     }
  * </pre>
  * <p>
  * As the example shows, the elements of the stakeholder and viewpoints are
- * declared as annotated fields of {@code String} types. The stakeholders and
- * viewpoints are initialized with these elements as arguments to their
- * constructors. Finally, the views are constructed with their specified
- * viewpoints and included views, as shown. The extended {@code SysMLViews}
- * class then stands alone in the model as its prescribed set of views,
- * viewpoints, and stakeholders.
+ * declared as annotated fields of {@code String} types.  Their values are 
+ * initialized in the applicable {@code create...()} operations.  The 
+ * stakeholders and viewpoints themselves are declared as shown and initialized
+ * with the appropriate elements in the {@code createStakeholders()} and
+ * {@code createViewpoints()}, respectively.
+ * <p>
+ * Finally, the views are declared as shown and initialized in the 
+ * {@code createViews()} method.  Initialization includes specification of the
+ * viewpoints and included views that constitute the view.
  * <p>
  * It should be noted that while there are variations in the way the view
  * elements could be declared/coded that are different from the example,
@@ -92,29 +74,237 @@ import sysmlinjava.common.SysMLClass;
 public abstract class SysMLViews extends SysMLClass
 {
 	/**
-	 * List of all {@code SysMLStakeholder} instances. Extensions to this class should
-	 * declare all {@code SysMLStakeholder} instances as static final fields in this
-	 * class and then declare a static statement to add those instances to this
-	 * list.
+	 * Constructor for unique name and ID
+	 * @param name unique name
+	 * @param id unique ID
 	 */
-	@Stakeholder
-	public static List<SysMLStakeholder> stakeholderInstances = new ArrayList<>();
+	public SysMLViews(String name, Long id)
+	{
+		super(name, id);
+		createPurposes();
+		createConcerns();
+		createLanguages();
+		createMethods();
+		createPresentations();
+		createStakeholders();
+		createViewpoints();
+		createViews();
+	}
 
 	/**
-	 * List of all {@code SysMLViewpoint} instances. Extensions to this class should
-	 * declare all {@code SysMLViewpoint} instances as static final fields in this
-	 * class and then declare a static statement to add those instances to this
-	 * list.
+	 * Creates the purposes.  An example of purpose declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Purpose
+		public String purposeA;
+		&#64;Purpose
+		public String purposeB;
+		&#64;Purpose
+		public String purposeC;
+
+		protected void createPurposes()
+		{
+			purposeA = "This is purpose A";
+			purposeB = "This is purpose B";
+			purposeC = "This is purpose C";
+		}
+	 * }
+	 * </pre>
 	 */
-	@Viewpoint
-	public static List<SysMLViewpoint> viewpointInstances = new ArrayList<>();
+	protected abstract void createPurposes();
+	
+	/**
+	 * Creates the concerns.  An example of concern declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Concern
+		public String concernA;
+		&#64;Concern
+		public String concernB;
+		&#64;Concern
+		public String concernC;
+
+		protected void createConcerns()
+		{
+			concernA = "This is concern A";
+			concernB = "This is concern B";
+			concernC = "This is concern C";
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createConcerns();
+	
+	/**
+	 * Creates the languages.  An example of language declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Language
+		public String languageA;
+		&#64;Language
+		public String languageB;
+		&#64;Language
+		public String languageC;
+
+		protected void createLanguages()
+		{
+			languageA = "This is language A";
+			languageB = "This is language B";
+			languageC = "This is language C";
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createLanguages();
+	
+	/**
+	 * Creates the methods.  An example of method declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Concern
+		public String methodA;
+		&#64;Concern
+		public String methodB;
+		&#64;Concern
+		public String methodC;
+
+		protected void createMethods()
+		{
+			methodA = "This is method A";
+			methodB = "This is method B";
+			methodC = "This is method C";
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createMethods();
+	
+	/**
+	 * Creates the presentations.  An example of presentation declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Presentation
+		public String presentationA;
+		&#64;Presentation
+		public String presentationB;
+		&#64;Presentation
+		public String presentationC;
+
+		protected void createPresentations()
+		{
+			presentationA = "This is presentation A";
+			presentationB = "This is presentation B";
+			presentationC = "This is presentation C";
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createPresentations();
+	
+	/**
+	 * Creates the stakeholders.  An example of stakeholder declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Stakeholder
+		public SysMLStakeholder stakeholderA;
+		&#64;Stakeholder
+		public SysMLStakeholder stakeholderB;
+		&#64;Stakeholder
+		public SysMLStakeholder stakeholderC;
+		
+		protected void createStakeholders()
+		{
+			stakeholderA = new SysMLStakeholder("StakeholderA", List.of(concernA)),
+			stakeholderB = new SysMLStakeholder("StakeholderB", List.of(concernB, concernA)),
+			stakeholderC = new SysMLStakeholder("StakeholderC", List.of(concernA, concernC));
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createStakeholders();
+	
+	/**
+	 * Creates the viewpoints.  An example of viewpoint declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;Viewpoint
+		public SysMLViewpoint viewpointA;
+		&#64;Viewpoint
+		public SysMLViewpoint viewpointB;
+		&#64;Viewpoint
+		public SysMLViewpoint viewpointC;
+
+		protected void createViewpoints()
+		{
+			viewpointA = new SysMLViewpoint("ViewpointA", List.of(stakeholderA), purposeA, List.of(concernA), List.of(languageA), List.of(presentationA), List.of(methodA));
+			viewpointB = new SysMLViewpoint("ViewpointB", List.of(stakeholderB), purposeB, List.of(concernB), List.of(languageB), List.of(presentationB), List.of(methodB));
+			viewpointC = new SysMLViewpoint("ViewpointC", List.of(stakeholderC), purposeC, List.of(concernC), List.of(languageC), List.of(presentationC), List.of(methodC));
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createViewpoints();
+	
+	/**
+	 * Creates the views.  An example of view declarations and initializations is as follows:
+	 * <pre>
+	 * {@code
+		&#64;View
+		public SysMLView viewA;
+		&#64;View
+		public SysMLView viewB;
+		&#64;View
+		public SysMLView viewC;
+
+		protected void createViews()
+		{
+			viewA = new SysMLView("ViewA", viewpointA, List.of()),
+			viewB = new SysMLView("ViewB", viewpointB, List.of()),
+			viewC = new SysMLView("ViewC", viewpointC, List.of(viewA, viewB)));
+		}
+	 * }
+	 * </pre>
+	 */
+	protected abstract void createViews();
 
 	/**
-	 * List of all {@code SysMLView} instances. Extensions to this class should
-	 * declare all {@code SysMLView} instances as static final fields in this class
-	 * and then declare a static statement to add those instances to this list.
+	 * Name of method to create purposes, used by SysMLinJava tools, typically
+	 * not needed for modeling
 	 */
-	@View
-	public static List<SysMLView> viewInstances = new ArrayList<>();
-
+	public static final String createPurposesMethodName = "createPurposes";
+	/**
+	 * Name of method to create concerns, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createConcernsMethodName = "createConcerns";
+	/**
+	 * Name of method to create languages, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createLanguagesMethodName = "createLanguages";
+	/**
+	 * Name of method to create methods, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createMethodsMethodName = "createMethods";
+	/**
+	 * Name of method to create presentations, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createPresentationsMethodName = "createPresentations";
+	/**
+	 * Name of method to create stakeholders, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createStakeholdersMethodName = "createStakeholders";
+	/**
+	 * Name of method to create viewpoints, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createViewpointsMethodName = "createViewpoints";
+	/**
+	 * Name of method to create views, used by SysMLinJava tools, typically
+	 * not needed for modeling
+	 */
+	public static final String createViewsMethodName = "createViews";
 }

@@ -30,7 +30,7 @@ public class ScatterPlotsTransmitter extends UDPTransmitter2<ScatterPlotDefiniti
 	 */
 	public ScatterPlotsTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "ScatterPlotsTransmitter");
 	}
 
 	/**

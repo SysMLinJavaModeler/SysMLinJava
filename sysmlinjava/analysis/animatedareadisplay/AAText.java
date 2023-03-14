@@ -2,7 +2,7 @@ package sysmlinjava.analysis.animatedareadisplay;
 
 import java.io.Serializable;
 import sysmlinjava.analysis.common.ColorEnum;
-import sysmlinjava.analysis.common.XYData;
+import sysmlinjava.analysis.common.XY;
 
 /**
  * Representation of a text object in an area display. Contains the parameters
@@ -67,7 +67,7 @@ public class AAText extends AAObject implements Serializable
 	/**
 	 * X,Y pixel position of the lower/right corner of the text display
 	 */
-	public XYData position;
+	public XY xyPosition;
 	/**
 	 * Order of the text in the layers of objects in the area display. Lower number
 	 * is closer to viewer.
@@ -91,7 +91,7 @@ public class AAText extends AAObject implements Serializable
 	 * @param zOrder        Order of the text in the layers of objects in the area
 	 *                      display. Lower number is closer to viewer.
 	 */
-	public AAText(String uid, Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, XYData position, Integer zOrder)
+	public AAText(String uid, Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, XY position, Integer zOrder)
 	{
 		super(uid, action);
 		switch (action)
@@ -104,7 +104,7 @@ public class AAText extends AAObject implements Serializable
 			this.fontColor = fontColor != null ? fontColor : ColorEnum.BLACK;
 			this.fontItalics = fontItalics != null ? fontItalics : false;
 			this.rotateDegrees = rotateDegrees != null ? rotateDegrees : 0;
-			this.position = position != null ? position : new XYData(10, 10);
+			this.xyPosition = position != null ? position : new XY(10, 10);
 			this.zOrder = zOrder != null ? zOrder : 0;
 			break;
 		case delete:
@@ -117,7 +117,7 @@ public class AAText extends AAObject implements Serializable
 			this.fontItalics = fontItalics;
 			this.fontColor = fontColor;
 			this.rotateDegrees = rotateDegrees;
-			this.position = position;
+			this.xyPosition = position;
 			this.zOrder = zOrder;
 			break;
 		default:
@@ -143,7 +143,7 @@ public class AAText extends AAObject implements Serializable
 	 * @param zOrder        Order of the text in the layers of objects in the area
 	 *                      display. Lower number is closer to viewer.
 	 */
-	public void update(Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, XYData position, Integer zOrder)
+	public void update(Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, XY position, Integer zOrder)
 	{
 		this.action = action != null ? action : Action.none;
 		this.text = text;
@@ -153,7 +153,7 @@ public class AAText extends AAObject implements Serializable
 		this.fontColor = fontColor;
 		this.fontItalics = fontItalics;
 		this.rotateDegrees = rotateDegrees;
-		this.position = position;
+		this.xyPosition = position;
 		this.zOrder = zOrder;
 	}
 
@@ -161,6 +161,6 @@ public class AAText extends AAObject implements Serializable
 	public String toString()
 	{
 		return String.format("AAText [uid=%s, action=%s, text=%s, fontName=%s, fontSize=%s, fontWeight=%s, fontItalics=%s, fontColor=%s, rotateDegrees=%s, position=%s, zOrder=%s]", uid, action, text, fontName, fontSize, fontWeight,
-			fontItalics, fontColor, rotateDegrees, position, zOrder);
+			fontItalics, fontColor, rotateDegrees, xyPosition, zOrder);
 	}
 }

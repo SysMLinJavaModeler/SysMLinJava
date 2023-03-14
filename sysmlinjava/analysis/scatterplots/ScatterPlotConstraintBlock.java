@@ -3,12 +3,10 @@ package sysmlinjava.analysis.scatterplots;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import sysmlinjava.analysis.common.XYData;
-import sysmlinjava.annotations.Constraint;
+import sysmlinjava.analysis.common.XY;
 import sysmlinjava.annotations.parametrics.ConstraintParameter;
 import sysmlinjava.annotations.parametrics.ConstraintParameterPort;
 import sysmlinjava.annotations.parametrics.ConstraintParameterPortFunction;
-import sysmlinjava.common.SysMLConstraint;
 import sysmlinjava.constraintblocks.SysMLConstraintBlock;
 import sysmlinjava.ports.SysMLConstraintParameterPort;
 import sysmlinjava.ports.SysMLConstraintParameterPortFunction;
@@ -43,13 +41,6 @@ public class ScatterPlotConstraintBlock extends SysMLConstraintBlock
 	 */
 	@ConstraintParameter
 	public Point2D point;
-
-	/**
-	 * Constraint that calculates/constrains the constraint parameter to the plot
-	 * display data
-	 */
-	@Constraint
-	public SysMLConstraint constraint;
 
 	/**
 	 * Data for the plot display
@@ -112,8 +103,8 @@ public class ScatterPlotConstraintBlock extends SysMLConstraintBlock
 	{
 		constraint = () ->
 		{
-			ArrayList<XYData> xyData = new ArrayList<>();
-			xyData.addAll(List.of(new XYData(point.xValue, point.yValue)));
+			ArrayList<XY> xyData = new ArrayList<>();
+			xyData.addAll(List.of(new XY(point.xValue, point.yValue)));
 			xyPlot = new ScatterPlotData(plotDefinition.scatterPlotID, xyData);
 		};
 	}

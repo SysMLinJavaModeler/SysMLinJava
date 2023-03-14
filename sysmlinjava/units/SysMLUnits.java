@@ -73,4 +73,11 @@ public abstract class SysMLUnits extends SysMLClass
 	 */
 	public static List<SysMLUnit> instances = new ArrayList<>();
 
+	/**
+	 * Constructor - default, no initializations
+	 */
+	public SysMLUnits()
+	{
+		super();
+	}
 }

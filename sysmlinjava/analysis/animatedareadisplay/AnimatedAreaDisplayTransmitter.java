@@ -34,7 +34,7 @@ public class AnimatedAreaDisplayTransmitter extends UDPTransmitter2<AnimatedArea
 	 */
 	public AnimatedAreaDisplayTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "AnimatedAreaDisplayTransmitter");
 	}
 
 	/**

@@ -31,4 +31,22 @@ public abstract class SysMLIntervalProbabilityDistribution extends SysMLBasicInt
 	{
 		super(copied);
 	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("SysMLIntervalProbabilityDistribution [minimumValue=");
+		builder.append(minimumValue);
+		builder.append(", maximumValue=");
+		builder.append(maximumValue);
+		builder.append(", distributionName=");
+		builder.append(distributionName);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
+	}
 }

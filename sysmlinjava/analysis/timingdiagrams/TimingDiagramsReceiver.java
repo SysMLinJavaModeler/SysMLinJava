@@ -22,7 +22,7 @@ public class TimingDiagramsReceiver extends UDPReceiver
 	 */
 	public TimingDiagramsReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "TimingDiagramsReceiver");
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class BarChartsTransmitter extends UDPTransmitter2<BarChartDefinition, Ba
 	 */
 	public BarChartsTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "BarChartsTransmitter");
 	}
 
 	/**

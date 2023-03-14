@@ -40,4 +40,22 @@ public final class SysMLUniformProbabilityDistribution extends SysMLBasicInterva
 		distributionName = "Uniform";
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("SysMLUniformProbabilityDistribution [minimumValue=");
+		builder.append(minimumValue);
+		builder.append(", maximumValue=");
+		builder.append(maximumValue);
+		builder.append(", distributionName=");
+		builder.append(distributionName);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

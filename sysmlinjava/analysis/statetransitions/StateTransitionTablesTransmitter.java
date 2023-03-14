@@ -29,6 +29,6 @@ public class StateTransitionTablesTransmitter extends UDPTransmitter<StateTransi
 	 */
 	public StateTransitionTablesTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "StateTransitionTablesTransmitter");
 	}
 }

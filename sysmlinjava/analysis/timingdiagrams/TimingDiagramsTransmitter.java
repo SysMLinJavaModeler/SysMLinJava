@@ -30,7 +30,7 @@ public class TimingDiagramsTransmitter extends UDPTransmitter2<StateTransitionTi
 	 */
 	public TimingDiagramsTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "TimingDiagramsTransmitter");
 	}
 
 	/**

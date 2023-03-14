@@ -1,12 +1,12 @@
 package sysmlinjava.analysis.animatedareadisplay;
 
 import java.io.Serializable;
-import sysmlinjava.analysis.common.XYData;
+import sysmlinjava.analysis.common.XY;
 
 /**
  * Representation of an image object in an area display. Contains the parameters
  * needed to display the object as an image in the display from a specified
- * image file and at a specified position, size, roation, and z-order in the
+ * image file and at a specified position, size, rotation, and z-order in the
  * area display.
  * 
  * @author ModelerOne
@@ -14,7 +14,8 @@ import sysmlinjava.analysis.common.XYData;
  */
 public class AAImage extends AAObject implements Serializable
 {
-	/** Serializable ID*/private static final long serialVersionUID = -7826688565768235972L;
+	/** Serializable ID */
+	private static final long serialVersionUID = -7826688565768235972L;
 	/**
 	 * String for default image file URL used only if null URL is provided in
 	 * constructor
@@ -47,7 +48,7 @@ public class AAImage extends AAObject implements Serializable
 	/**
 	 * X,Y position in the display of the center of the image
 	 */
-	public XYData position;
+	public XY xyPosition;
 	/**
 	 * Order of the image in the layers of objects in the area display. Lower number
 	 * is closer to viewer.
@@ -57,27 +58,32 @@ public class AAImage extends AAObject implements Serializable
 	/**
 	 * Constructor for all attributes
 	 * 
-	 * @param uid           unique identifier
+	 * @param uid           unique identifier (always required)
 	 * @param action        the action to be performed in the display of the text
+	 *                      (always required)
 	 * @param imageFileURL  URL for the file that contains the image to be
-	 *                      displayed.
+	 *                      displayed. (required if action is create, optionally
+	 *                      null if update)
 	 * @param resizeWidth   width (pixels) to resize the image to for the display.
 	 *                      Null or zero for no resize
 	 * @param resizeHeight  height (pixels) to resize the image to for the display.
 	 *                      Null or zero for no resize
-	 * @param rotateDegrees degrees (clockwise) to rotate the image to for the
+	 * @param rotateDegrees degrees (clockwise) to rotate the image for the
 	 *                      display. Null or zero for no resize
-	 * @param position      X,Y position in the display of the center of the image
+	 * @param xyPosition    X,Y position in the display of the center of the image
+	 *                      (required if action is create, optionally null for
+	 *                      update)
 	 * @param zOrder        order of the image in the layers of objects in the area
-	 *                      display. Lower number is closer to viewer.
+	 *                      display. Lower number is closer to viewer. (optionally
+	 *                      null for all actions)
 	 */
-	public AAImage(String uid, Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, XYData position, Integer zOrder)
+	public AAImage(String uid, Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, XY xyPosition, Integer zOrder)
 	{
 		super(uid, action);
 		switch (action)
 		{
 		case create:
-			this.position = position != null ? position : new XYData(0, 0);
+			this.xyPosition = xyPosition != null ? xyPosition : new XY(0, 0);
 			this.imageFileURL = imageFileURL != null ? imageFileURL : defaultImageFileURL;
 			this.resizeWidth = resizeWidth != null ? resizeWidth : 0;
 			this.resizeHeight = resizeHeight != null ? resizeHeight : 0;
@@ -89,7 +95,7 @@ public class AAImage extends AAObject implements Serializable
 			this.resizeWidth = resizeWidth;
 			this.resizeHeight = resizeHeight;
 			this.rotateDegrees = rotateDegrees;
-			this.position = position;
+			this.xyPosition = xyPosition;
 			this.zOrder = zOrder;
 			break;
 		case delete:
@@ -104,32 +110,50 @@ public class AAImage extends AAObject implements Serializable
 	 * value {@code null} indicating no change
 	 * 
 	 * @param action        the action to be performed in the display of the text
-	 * @param imageFileURL  URL for the file that contains the image to be
-	 *                      displayed.
-	 * @param resizeWidth   width (pixels) to resize the image to for the display.
-	 *                      Null or zero for no resize
-	 * @param resizeHeight  height (pixels) to resize the image to for the display.
-	 *                      Null or zero for no resize
-	 * @param rotateDegrees degrees (clockwise) to rotate the image to for the
-	 *                      display. Null or zero for no resize
-	 * @param position      X,Y position in the display of the center of the image
-	 * @param zOrder        order of the image in the layers of objects in the area
-	 *                      display. Lower number is closer to viewer.
+	 *                      (required, cannot be null)
+	 * @param imageFileURL  different URL for the file that contains the different
+	 *                      image to be displayed, or null if no change.
+	 * @param resizeWidth   different width (pixels) to resize the image to for the
+	 *                      display, or null if no change
+	 * @param resizeHeight  different height (pixels) to resize the image to for the
+	 *                      display, or null if no change Null or zero for no resize
+	 * @param rotateDegrees different degrees (clockwise) to rotate the image for
+	 *                      the display, or null if no change
+	 * @param xyPosition    different X,Y position in the display of the center of
+	 *                      the image, or null if no change
+	 * @param zOrder        different order of the image in the layers of objects in
+	 *                      the area display (lower number is closer to viewer.), or
+	 *                      null if no change.
 	 */
-	public void update(Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, XYData position, Integer zOrder)
+	public void update(Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, XY xyPosition, Integer zOrder)
 	{
 		this.action = action != null ? action : Action.none;
 		this.imageFileURL = imageFileURL;
 		this.resizeWidth = imageFileURL != null ? (resizeWidth != null ? resizeWidth : 0) : null;
 		this.resizeHeight = imageFileURL != null ? (resizeHeight != null ? resizeHeight : 0) : null;
 		this.rotateDegrees = rotateDegrees;
-		this.position = position;
+		this.xyPosition = xyPosition;
 		this.zOrder = zOrder;
 	}
 
 	@Override
 	public String toString()
 	{
-		return String.format("AAImage [uid=%s, action=%s, imageFileURL=%s, resizeWidth=%s, resizeHeight=%s, rotateDegrees=%s, position=%s, zOrder=%s]", uid, action, imageFileURL, resizeWidth, resizeHeight, rotateDegrees, position, zOrder);
+		StringBuilder builder = new StringBuilder();
+		builder.append("AAImage [imageFileURL=");
+		builder.append(imageFileURL);
+		builder.append(", resizeWidth=");
+		builder.append(resizeWidth);
+		builder.append(", resizeHeight=");
+		builder.append(resizeHeight);
+		builder.append(", rotateDegrees=");
+		builder.append(rotateDegrees);
+		builder.append(", xyPosition=");
+		builder.append(xyPosition);
+		builder.append(", zOrder=");
+		builder.append(zOrder);
+		builder.append("]");
+		return builder.toString();
 	}
+
 }

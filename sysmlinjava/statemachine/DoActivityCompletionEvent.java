@@ -13,7 +13,7 @@ import sysmlinjava.events.SysMLCompletionEvent;
  * @author ModelerOne
  *
  */
-public class DoActivityCompletionEvent extends SysMLCompletionEvent
+public final class DoActivityCompletionEvent extends SysMLCompletionEvent
 {
 	/**
 	 * Constructor

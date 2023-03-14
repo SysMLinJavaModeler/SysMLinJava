@@ -6,6 +6,10 @@ import sysmlinjava.units.SysMLinJavaUnits;
 /**
  * SysMLinJava value type for the SysML String implemented with a standard Java
  * String.
+ * <p>
+ * Note that the {@code String} name clashes with the {@code java.lang.String}
+ * name. Therefore, this SysMLinJava version uses the double S spelling.
+ * <p>
  * 
  * @author ModelerOne
  *

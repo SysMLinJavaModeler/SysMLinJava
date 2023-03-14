@@ -8,9 +8,6 @@ import java.io.Serializable;
  * @author ModelerOne
  *
  */
-/**
- * 
- */
 public class CatYData implements Serializable
 {
 	/** Serializable ID*/private static final long serialVersionUID = 6019714086065572412L;

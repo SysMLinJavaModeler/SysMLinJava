@@ -16,11 +16,26 @@ public abstract class AAObject implements Serializable
 	/** Serializable ID*/private static final long serialVersionUID = 8621836558579485249L;
 
 	/**
-	 * Enumeration of actions that can be performed on the object in the display
-	 * 
-	 * @author ModelerOne
-	 *
+	 * Unique identifier for the area display object
 	 */
+	public String uid;
+	/**
+	 * Action to be taken on the area display object
+	 */
+	public Action action;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param uid    unique identifier for the area display object
+	 * @param action action to be taken on the area display object
+	 */
+	public AAObject(String uid, Action action)
+	{
+		this.uid = uid != null && !uid.isBlank() ? uid : this.toString();
+		this.action = action != null ? action : Action.create;
+	}
+
 	/**
 	 * Enumeration of the action to be performed on the {@code AAObject}, i.e.
 	 * create it, update it, or delete it from the area display. Or do nothing
@@ -47,26 +62,5 @@ public abstract class AAObject implements Serializable
 		 * Do nothing to the object in the display
 		 */
 		none
-	};
-
-	/**
-	 * Unique identifier for the area display object
-	 */
-	public String uid;
-	/**
-	 * Action to be taken on the area display object
-	 */
-	public Action action;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param uid    unique identifier for the area display object
-	 * @param action action to be taken on the area display object
-	 */
-	public AAObject(String uid, Action action)
-	{
-		this.uid = uid != null && !uid.isBlank() ? uid : this.toString();
-		this.action = action != null ? action : Action.create;
 	}
 }

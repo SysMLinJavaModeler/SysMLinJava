@@ -21,7 +21,7 @@ public class BarChartsReceiver extends UDPReceiver
 	 */
 	public BarChartsReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "BarChartsReceiver");
 	}
 
 	@Override

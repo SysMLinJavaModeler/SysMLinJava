@@ -21,7 +21,7 @@ public class LineChartsReceiver extends UDPReceiver
 	 */
 	public LineChartsReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "LineChartsReceiver");
 	}
 
 	@Override

@@ -7,9 +7,7 @@ import java.util.Optional;
 import sysmlinjava.analysis.animatedareadisplay.AAObject.Action;
 import sysmlinjava.analysis.animatedareadisplay.AAText.FontWeightEnum;
 import sysmlinjava.analysis.common.ColorEnum;
-import sysmlinjava.analysis.common.XYData;
-import sysmlinjava.valuetypes.Point2D;
-import sysmlinjava.valuetypes.Polyline2D;
+import sysmlinjava.analysis.common.XY;
 
 /**
  * Definition of the objects to be used to update the area display, i.e.
@@ -21,7 +19,8 @@ import sysmlinjava.valuetypes.Polyline2D;
  */
 public class AnimatedAreaDisplayData implements Serializable
 {
-	/** Serializable ID*/private static final long serialVersionUID = 2094915479474631371L;
+	/** Serializable ID */
+	private static final long serialVersionUID = 2094915479474631371L;
 
 	/**
 	 * List of the text objects to be in the display
@@ -76,19 +75,16 @@ public class AnimatedAreaDisplayData implements Serializable
 	 * @param fontColor     color of the font used to display the text
 	 * @param fontItalics   whether the font is be italics (vs. regular)
 	 * @param rotateDegrees degrees to rotate text
-	 * @param position      X,Y pixel position of the lower/right corner of the text
+	 * @param xyPosition      X,Y pixel position of the lower/right corner of the text
 	 *                      display
 	 * @param zOrder        Order of the text in the layers of objects in the area
 	 *                      display. Lower number is closer to viewer.
 	 */
-	public void updateText(String uid, Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, Point2D position, Integer zOrder)
+	public void updateText(String uid, Action action, String text, String fontName, Integer fontSize, FontWeightEnum fontWeight, ColorEnum fontColor, Boolean fontItalics, Integer rotateDegrees, XY xyPosition, Integer zOrder)
 	{
 		Optional<AAText> next = getText(uid);
 		if (next.isPresent())
-		{
-			XYData xyPosition = position != null ? new XYData(position.xValue, position.yValue) : null;
 			next.get().update(action, text, fontName, fontSize, fontWeight, fontColor, fontItalics, rotateDegrees, xyPosition, zOrder);
-		}
 	}
 
 	/**
@@ -105,44 +101,36 @@ public class AnimatedAreaDisplayData implements Serializable
 	 *                      Null or zero for no resize
 	 * @param rotateDegrees degrees (clockwise) to rotate the image to for the
 	 *                      display. Null or zero for no resize
-	 * @param position      X,Y position in the display of the center (half-width,
+	 * @param xyPosition    X,Y position in the display of the center (half-width,
 	 *                      half-height) of the image
 	 * @param zOrder        order of the image in the layers of objects in the area
 	 *                      display. Lower number is closer to viewer.
 	 */
-	public void updateImage(String uid, Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, Point2D position, Integer zOrder)
+	public void updateImage(String uid, Action action, String imageFileURL, Integer resizeWidth, Integer resizeHeight, Integer rotateDegrees, XY xyPosition, Integer zOrder)
 	{
 		Optional<AAImage> aimage = getImage(uid);
 		if (aimage.isPresent())
-		{
-			XYData xyPosition = position != null ? new XYData(position.xValue, position.yValue) : null;
 			aimage.get().update(action, imageFileURL, resizeWidth, resizeHeight, rotateDegrees, xyPosition, zOrder);
-		}
 	}
 
 	/**
 	 * Updates/changes the line display as specified by parameter values, with value
 	 * {@code null} indicating no change
 	 * 
-	 * @param uid        unique identifier
-	 * @param action     action to be performed on the line
-	 * @param polyline2D set of x,y points to be connected for the line
-	 * @param color      Color of the line
-	 * @param width      width, in points, of the line
-	 * @param zOrder     order of the line in the layers of objects in the area
-	 *                   display. Lower number is closer to viewer.
+	 * @param uid      unique identifier
+	 * @param action   action to be performed on the line
+	 * @param polyline set of x,y points to be connected for the line
+	 * @param color    Color of the line
+	 * @param width    width, in points, of the line
+	 * @param zOrder   order of the line in the layers of objects in the area
+	 *                 display. Lower number is closer to viewer.
 	 */
-	public void updateLine(String uid, Action action, Polyline2D polyline2D, ColorEnum color, Integer width, Integer zOrder)
+	public void updateLine(String uid, Action action, ArrayList<XY> polyline, ColorEnum color, Integer width, Integer zOrder)
 	{
 		Optional<AALine> aline = getLine(uid);
 		if (aline.isPresent())
-			if (polyline2D != null)
-			{
-				ArrayList<XYData> xyPoints = new ArrayList<>();
-				for (Point2D point2D : polyline2D.value)
-					aline.get().points.add(new XYData(point2D.xValue, point2D.yValue));
-				aline.get().update(action, xyPoints, color, width, zOrder);
-			}
+			if (polyline != null && !polyline.isEmpty())
+				aline.get().update(action, polyline, color, width, zOrder);
 			else
 				aline.get().update(action, null, color, width, zOrder);
 	}

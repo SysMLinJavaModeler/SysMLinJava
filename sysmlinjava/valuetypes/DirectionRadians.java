@@ -1,6 +1,7 @@
 package sysmlinjava.valuetypes;
 
 import static java.lang.Math.PI;
+import static java.lang.Math.atan;
 import sysmlinjava.annotations.Operation;
 import sysmlinjava.units.SysMLinJavaUnits;
 
@@ -142,6 +143,20 @@ public class DirectionRadians extends RReal
 			value -= subtractedDirection.value;
 		else
 			value = value + 2 * PI - subtractedDirection.value;
+	}
+
+	public static DirectionRadians direction(Point2D from, Point2D to)
+	{
+		if(to.xValue > from.xValue)
+			if(to.yValue > from.yValue)
+				return new DirectionRadians(0.0 * PI + atan((to.xValue - from.xValue) / (to.yValue - from.yValue)));
+			else
+				return new DirectionRadians(0.5 * PI + atan((from.yValue - to.yValue) / (to.xValue - from.xValue)));
+		else
+			if(to.yValue > from.yValue)
+				return new DirectionRadians(1.5 * PI + atan((to.yValue - from.yValue) / (from.xValue - to.xValue)));
+			else
+				return new DirectionRadians(1.0 * PI + atan((from.xValue - to.xValue) / (from.yValue - to.yValue)));
 	}
 
 	/**

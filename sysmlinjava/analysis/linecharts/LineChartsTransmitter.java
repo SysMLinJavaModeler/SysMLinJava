@@ -30,7 +30,7 @@ public class LineChartsTransmitter extends UDPTransmitter2<LineChartDefinition, 
 	 */
 	public LineChartsTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "LineChartsTransmitter");
 	}
 
 	/**

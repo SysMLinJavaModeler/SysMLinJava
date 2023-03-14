@@ -1,17 +1,10 @@
 package sysmlinjava.analysis.animatedareadisplay;
 
 import java.util.Optional;
-import sysmlinjava.analysis.common.XYData;
+import sysmlinjava.analysis.common.GeospatialCoordinateTransform;
 import sysmlinjava.annotations.Constraint;
-import sysmlinjava.annotations.Value;
 import sysmlinjava.common.SysMLConstraint;
 import sysmlinjava.constraintblocks.SysMLConstraintBlock;
-import sysmlinjava.valuetypes.LongitudeRadians;
-import sysmlinjava.valuetypes.Point2D;
-import sysmlinjava.valuetypes.Polyline2D;
-import sysmlinjava.valuetypes.PolylineGeospatial;
-import sysmlinjava.valuetypes.RReal;
-import sysmlinjava.valuetypes.PointGeospatial;
 
 /**
  * {@code AnimatedAreaGeospatialDisplayConstraintBlock} is a SysMLinJava model
@@ -51,53 +44,6 @@ import sysmlinjava.valuetypes.PointGeospatial;
 public abstract class AnimatedAreaGeospatialDisplayConstraintBlock extends SysMLConstraintBlock
 {
 	/**
-	 * Geospatial point that corresponds to the upper left corner of the geospatial
-	 * area display. This parameter, along with {@code pointsPerRadianLatitude} and
-	 * {@code pointsPerRadianLongitude} below, is used to translate all geospatial
-	 * points (lats/lons) to cartesian points (X/Y) in the area display.
-	 */
-	@Value
-	public PointGeospatial geospatialUpperLeft;
-	/**
-	 * Value of the number of X,Y points ({@code XYData}s) in a radian of latitude.
-	 * This parameter, along with {@code geospatialUpperLeft} is used to translate
-	 * all geospatial points (lats/lons) to cartesian points (X/Y) in the area
-	 * display.
-	 */
-	@Value
-	public RReal pointsPerRadianLatitude;
-	/**
-	 * Value of the number of X,Y points ({@code XYData}s) in a radian of longitude.
-	 * Note this is a derived value and, along with {@code geospatialUpperLeft} is
-	 * used to translate all geospatial points (lats/lons) to cartesian points (X/Y)
-	 * in the area display.
-	 */
-	@Value
-	public RReal pointsPerRadianLongitude;
-	/**
-	 * Value for converting miles to kilometers
-	 */
-	@Value
-	public RReal kilometersPerMile;
-	/**
-	 * Value for converting radians of latitude to kilometers
-	 */
-	@Value
-	public RReal kilometerPerRadianLat;
-	/**
-	 * Value for converting radians of longitude (for a specified latitude) to
-	 * kilometers
-	 */
-	@Value
-	public RReal kilometerPerRadianLon;
-	/**
-	 * Value for converting kilometers into cartesian points (x or y) for the
-	 * current area display
-	 */
-	@Value
-	public RReal pointsCartesianPerKilometer;
-
-	/**
 	 * Constraint function that calculates and updates the area display from the
 	 * constraint parameter values. The constraint function is invoked everytime a
 	 * parameter port obtains a new value of a bound parameter and updates one or
@@ -122,6 +68,12 @@ public abstract class AnimatedAreaGeospatialDisplayConstraintBlock extends SysML
 	private AnimatedAreaDisplayTransmitter displayTransmitter;
 
 	/**
+	 * Geospatial coordinate transform utility for transforming geospatial
+	 * coordinates to 2D cartesian and/or pixel space coordinates.
+	 */
+	protected GeospatialCoordinateTransform transform;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param udpPort      number of UDP port on which to receive the display
@@ -144,6 +96,18 @@ public abstract class AnimatedAreaGeospatialDisplayConstraintBlock extends SysML
 
 		displayTransmitter = new AnimatedAreaDisplayTransmitter(udpPort, logToConsole);
 		displayTransmitter.transmitDefinition(displayDefinition);
+	}
+
+	/**
+	 * Set the geospatial coordinate transform utility for transforming geospatial
+	 * coordinates to cartesian coordinates.
+	 * 
+	 * @param transform GeospatialCoordinateTransform instance initialized for this
+	 *                  specific model constraint block
+	 */
+	public void setTransform(GeospatialCoordinateTransform transform)
+	{
+		this.transform = transform;
 	}
 
 	@Override
@@ -177,13 +141,6 @@ public abstract class AnimatedAreaGeospatialDisplayConstraintBlock extends SysML
 		displayTransmitter.transmitData(displayData);
 	}
 
-	@Override
-	protected void createValues()
-	{
-		kilometersPerMile = new RReal(1.609344);
-		kilometerPerRadianLat = new RReal(LongitudeRadians.kilometersPerRadianAtEquator);
-	}
-
 	/**
 	 * Overridable abstract operation that creates/constructs the area display
 	 * definition. Specializations should override (and invoke) this method to
@@ -198,47 +155,4 @@ public abstract class AnimatedAreaGeospatialDisplayConstraintBlock extends SysML
 	 * values of the {@code displayData} for tranmission to the area display.
 	 */
 	protected abstract void createDisplayData();
-
-	/**
-	 * Returns a poly line in this display's 2D cartesian space translated from a
-	 * polyline in geo-space
-	 * 
-	 * @param geoPolyline the polyline in geo-space
-	 * @return the polyline converted to 2D cartesian space
-	 */
-	protected Polyline2D toPolyLine2D(PolylineGeospatial geoPolyline)
-	{
-		Point2D[] points = new Point2D[geoPolyline.value.length];
-		for (int i = 0; i < geoPolyline.value.length; i++)
-			points[i] = toPoint2D(geoPolyline.value[i]);
-		return new Polyline2D(points);
-	}
-
-	/**
-	 * Returns a point (x,y) in this display's 2D cartesian space translated from a
-	 * point (lat, lon) in geo-space
-	 * 
-	 * @param geoPoint the point in geo-space
-	 * @return the geoPoint converted to 2D cartesian space
-	 */
-	protected Point2D toPoint2D(PointGeospatial geoPoint)
-	{
-		double xValue = (geospatialUpperLeft.longitude.value - geoPoint.longitude.value) * pointsPerRadianLongitude.value;
-		double yValue = (geospatialUpperLeft.latitude.value - geoPoint.latitude.value) * pointsPerRadianLatitude.value;
-		return new Point2D(xValue, yValue);
-	}
-
-	/**
-	 * Returns a point (x,y) in this display's X-Y pixel space translated from a
-	 * point (lat, lon) in geo-space
-	 * 
-	 * @param geoPoint the point in geo-space
-	 * @return the geoPoint converted to X-Y pixel space
-	 */
-	protected XYData toXYData(PointGeospatial geoPoint)
-	{
-		double xValue = Math.abs(geospatialUpperLeft.longitude.value - geoPoint.longitude.value) * pointsPerRadianLongitude.value;
-		double yValue = Math.abs(geospatialUpperLeft.latitude.value - geoPoint.latitude.value) * pointsPerRadianLatitude.value;
-		return new XYData(xValue, yValue);
-	}
 }

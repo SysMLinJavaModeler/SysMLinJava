@@ -48,6 +48,10 @@ public class UDPTransmitter2<T, U>
 	 */
 	ObjectOutputStream objectStream;
 	/**
+	 * String name of this transmitter's socket
+	 */
+	String socketName;
+	/**
 	 * Number bytes in datagram packet buffer
 	 */
 	public static final int byteBufferSize = 100_000;
@@ -63,17 +67,19 @@ public class UDPTransmitter2<T, U>
 	 *                     greater the CPU resources are needed. This can cause
 	 *                     noticable slowing of the console display and related
 	 *                     applications.
+	 * @param socketName unique name for this transmitter's socket, e.g. Bar Chart, HTML Display
 	 */
-	public UDPTransmitter2(int udpPort, boolean logToConsole)
+	public UDPTransmitter2(int udpPort, boolean logToConsole, String socketName)
 	{
 		super();
 		logger = Logger.getLogger(getClass().getName());
 		this.udpPort = udpPort;
 		this.logToConsole = logToConsole;
+		this.socketName = socketName;
 		try
 		{
 			socket = new DatagramSocket();
-			logger.info("socket opened, transmitting via UDP port: " + this.udpPort);
+			logger.info(String.format("%s socket opened, transmitting via UDP port: %d", socketName, udpPort));
 		} catch (SocketException e)
 		{
 			e.printStackTrace();
@@ -134,6 +140,6 @@ public class UDPTransmitter2<T, U>
 	public void stop()
 	{
 		socket.close();
-		logger.info("socket closed");
+		logger.info(String.format("%s socket closed for UDP port: %d", socketName, udpPort));
 	}
 }

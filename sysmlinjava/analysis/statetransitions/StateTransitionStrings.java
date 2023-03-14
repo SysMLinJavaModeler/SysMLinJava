@@ -243,6 +243,14 @@ public class StateTransitionStrings implements Serializable
 	 */
 	public static class StateTransitionsListComparator implements Comparator<StateTransitionStrings>
 	{
+		/**
+		 * Constructor - default, no initializations
+		 */
+		public StateTransitionsListComparator()
+		{
+			super();
+		}
+
 		@Override
 		public int compare(StateTransitionStrings left, StateTransitionStrings right)
 		{

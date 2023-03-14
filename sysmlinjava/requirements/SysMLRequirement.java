@@ -94,7 +94,7 @@ public final class SysMLRequirement extends SysMLAbstractRequirement
 	 * @param status       requirement's status
 	 * @param priority     requirement's priority
 	 * @param originator   requirement's originator
-	 * @param owner        requirement's ownder
+	 * @param owner        requirement's owner
 	 * @param userDefined  requirement's user-defined attributes
 	 */
 	public SysMLRequirement(String identifier, String title, String text, RequirementCategoryEnum category, List<SysMLVerificationMethodKind> verification, SysMLRiskKind risk, RequirementStatusEnum status, Integer priority, String originator, String owner, Map<String, String> userDefined)

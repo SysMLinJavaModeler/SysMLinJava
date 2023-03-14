@@ -147,7 +147,7 @@ public final class SysMLConstraintParameterPort extends SysMLClass implements Va
 			constraintBlock.valueChanged(name.isPresent() ? name.get() : "");
 		} catch (InterruptedException e)
 		{
-			e.printStackTrace();
+			logger.warning("Interrupted exception: " + e.getMessage());
 		}
 	}
 

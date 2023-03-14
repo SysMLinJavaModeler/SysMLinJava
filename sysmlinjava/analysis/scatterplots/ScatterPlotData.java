@@ -3,7 +3,7 @@ package sysmlinjava.analysis.scatterplots;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringJoiner;
-import sysmlinjava.analysis.common.XYData;
+import sysmlinjava.analysis.common.XY;
 
 /**
  * Data (x-y values) to be displayed on a scatter plot display
@@ -22,7 +22,7 @@ public class ScatterPlotData implements Serializable
 	/**
 	 * List of the x-y data points to be "plotted"
 	 */
-	public ArrayList<XYData> xyData;
+	public ArrayList<XY> xyData;
 
 	/**
 	 * Constructor
@@ -30,7 +30,7 @@ public class ScatterPlotData implements Serializable
 	 * @param scatterPlotID ID of the plot
 	 * @param xyData        list of the x-y data points to be "plotted"
 	 */
-	public ScatterPlotData(String scatterPlotID, ArrayList<XYData> xyData)
+	public ScatterPlotData(String scatterPlotID, ArrayList<XY> xyData)
 	{
 		super();
 		this.scatterPlotID = scatterPlotID;

@@ -23,7 +23,7 @@ public class AnimatedAreaDisplayReceiver extends UDPReceiver
 	 */
 	public AnimatedAreaDisplayReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "AnimatedAreaDisplayReceiver");
 	}
 
 	@Override

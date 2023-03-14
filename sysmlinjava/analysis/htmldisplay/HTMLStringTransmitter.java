@@ -27,6 +27,6 @@ public class HTMLStringTransmitter extends UDPTransmitter<HTMLString>
 	 */
 	public HTMLStringTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "HTMLStringTransmitter");
 	}
 }

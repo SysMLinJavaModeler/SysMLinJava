@@ -20,10 +20,12 @@ import sysmlinjava.common.SysMLClass;
  * initialized with the reference to another block object. Therefore, the
  * {@code SysMLAssociationBlockConnector} realizes a connector(s) by executing a
  * {@code SysMLAssociationBlockConnectorFunction} function that performs these
- * initializations of these fields with the appropriate references. In the
- * SysMLinJava implementation of the {@code SysMLFullPort}, however, rather than
- * set the field reference directly, an {@code addConnector..} operation on the
- * connected port is invoked to actually set the field reference.
+ * initializations of these fields with the appropriate references. The
+ * connector function invokes a method on the object at the source of the
+ * connector to add the object at the destination of the connector to its set of
+ * connections. For example, the connector function connects a pair of full
+ * ports by invoking the {@code addConnectedPortPeer(<destination>)} operation
+ * of the source port with the destination port for the argument.
  * 
  * @author ModelerOne
  *
@@ -67,19 +69,19 @@ public class SysMLAssociationBlockConnector extends SysMLClass
 	 * Constructor for two participant, i.e. single connector realizations of the
 	 * association.
 	 * 
-	 * @param participant0 One of the participants in the association, i.e. at one
-	 *                     end of the connector
-	 * @param participant1 The other participant in the association, i.e. at the
-	 *                     other end of the connector
-	 * @param connector    The implementation of the interface that performs the
-	 *                     connection, i.e. creates the connector between the
-	 *                     participants.
+	 * @param participant0      One of the participants in the association, i.e. at
+	 *                          one end of the connector
+	 * @param participant1      The other participant in the association, i.e. at
+	 *                          the other end of the connector
+	 * @param connectorFunction The implementation of the interface that performs
+	 *                          the connection, i.e. creates the connector between
+	 *                          the participants.
 	 */
-	public SysMLAssociationBlockConnector(SysMLBlock participant0, SysMLBlock participant1, SysMLAssociationBlockConnectorFunction connector)
+	public SysMLAssociationBlockConnector(SysMLBlock participant0, SysMLBlock participant1, SysMLAssociationBlockConnectorFunction connectorFunction)
 	{
 		this.participant0 = participant0;
 		this.participant1 = participant1;
-		connector.connect();
+		connectorFunction.connect();
 	}
 
 	/**

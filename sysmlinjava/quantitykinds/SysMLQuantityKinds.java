@@ -41,4 +41,11 @@ public abstract class SysMLQuantityKinds extends SysMLClass
 	 */
 	public static List<SysMLQuantityKind> instances;
 
+	/**
+	 * Constructor - default, no initializations
+	 */
+	public SysMLQuantityKinds()
+	{
+		super();
+	}
 }

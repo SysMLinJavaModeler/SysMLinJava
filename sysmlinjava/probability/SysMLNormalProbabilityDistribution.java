@@ -2,6 +2,7 @@ package sysmlinjava.probability;
 
 import sysmlinjava.annotations.Attribute;
 import sysmlinjava.annotations.Operation;
+import sysmlinjava.valuetypes.RReal;
 
 /**
  * SysMLinJava representation of a normal (gaussian) probability distribution
@@ -16,13 +17,13 @@ public final class SysMLNormalProbabilityDistribution extends SysMLProbabilityDi
 	 * Mean value of the normal probability distribution
 	 */
 	@Attribute
-	public Double mean;
+	public RReal mean;
 
 	/**
 	 * Standard deviation value of the normal probability distribution
 	 */
 	@Attribute
-	public Double standardDeviation;
+	public RReal standardDeviation;
 
 	/**
 	 * Constructor for specified mean and standard deviation
@@ -31,7 +32,7 @@ public final class SysMLNormalProbabilityDistribution extends SysMLProbabilityDi
 	 * @param standardDeviation standard deviation of the normal probability
 	 *                          distribution
 	 */
-	public SysMLNormalProbabilityDistribution(Double mean, Double standardDeviation)
+	public SysMLNormalProbabilityDistribution(RReal mean, RReal standardDeviation)
 	{
 		super();
 		this.mean = mean;
@@ -42,12 +43,30 @@ public final class SysMLNormalProbabilityDistribution extends SysMLProbabilityDi
 	@Override
 	public double nextRandom()
 	{
-		return mean + random.nextGaussian() * standardDeviation;
+		return mean.value + random.nextGaussian() * standardDeviation.value;
 	}
 
 	@Override
 	protected void createDistributionName()
 	{
 		distributionName = "Normal";
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("SysMLNormalProbabilityDistribution [mean=");
+		builder.append(mean);
+		builder.append(", standardDeviation=");
+		builder.append(standardDeviation);
+		builder.append(", distributionName=");
+		builder.append(distributionName);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
 	}
 }

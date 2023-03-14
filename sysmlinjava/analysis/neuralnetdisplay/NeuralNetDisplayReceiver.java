@@ -26,7 +26,7 @@ public class NeuralNetDisplayReceiver extends UDPReceiver
 	 */
 	public NeuralNetDisplayReceiver(int udpPort)
 	{
-		super(udpPort);
+		super(udpPort, "NeuralNetDisplayReceiver");
 	}
 
 	@Override

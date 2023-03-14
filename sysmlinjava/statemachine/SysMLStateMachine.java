@@ -428,11 +428,11 @@ public abstract class SysMLStateMachine extends SysMLClass implements Runnable
 	}
 
 	/**
-	 * Event handler for the initial event, i.e. for the first event received by the
-	 * state machine. The operation performs the initial transition then it
-	 * determines the next transition, if any, that is active and performs that
-	 * transition, until no active transitions are found or the final state is
-	 * reached.
+	 * Event handler for the initial event. That is, for the first event received by
+	 * the state machine to transition from the initial state. The operation
+	 * performs the initial transition then it determines the next transition, if
+	 * any, that is active and performs that transition, until no active transitions
+	 * are found or the final state is reached.
 	 * 
 	 * @param initialEvent initial event received while in initial state.
 	 */
@@ -710,8 +710,6 @@ public abstract class SysMLStateMachine extends SysMLClass implements Runnable
 	 * equal priority, i.e. no prioritization of events. This operation can/should
 	 * be overridden in extended classes if/when event prioritization is needed.
 	 * 
-	 * @author ModelerOne
-	 *
 	 */
 	protected void createEventComparator()
 	{
@@ -1261,13 +1259,23 @@ public abstract class SysMLStateMachine extends SysMLClass implements Runnable
 	 * SysMLStateMachine's event queue. This default comparator gives all events
 	 * equal priority, i.e. no prioritization of events. The event comparator is set
 	 * in the {@code createEventComparator()} operation. This operation can/should
-	 * be overridden in extended classes if/when event prioritization is needed.
+	 * be overridden in extended classes to initialize the {@code eventComparator}
+	 * with a specialized event comparator if/when event prioritization of events is
+	 * needed.
 	 * 
 	 * @author ModelerOne
 	 *
 	 */
 	public class DefaultEventComparator implements Comparator<SysMLEvent>
 	{
+		/**
+		 * Constructor - default, no initializations
+		 */
+		public DefaultEventComparator()
+		{
+			super();
+		}
+
 		@Override
 		public int compare(SysMLEvent left, SysMLEvent right)
 		{

@@ -659,7 +659,7 @@ public abstract class SysMLFullPort extends SysMLBlock
 	 *             method is as follows:
 	 * 
 	 *             <pre>
-	 *             elementA.nestedElementA2.addVirtualConnectedPortPeer(elementB.nestedElementB1);
+	 *             elementA.nestedPortA2.addVirtualConnectedPortPeer(elementB.nestedPortB1);
 	 *             </pre>
 	 */
 	public void addVirtualConnectedPortPeer(SysMLFullPort peer)

@@ -11,7 +11,7 @@ import sysmlinjava.units.SysMLinJavaUnits;
  * @author ModelerOne
  *
  */
-public class ForceNewtons extends Vector2DValueType implements StackedProtocolObject
+public class ForceNewtons extends Vector2D implements StackedProtocolObject
 {
 	/** Serializable ID*/private static final long serialVersionUID = -4223420272722664905L;
 
@@ -75,7 +75,7 @@ public class ForceNewtons extends Vector2DValueType implements StackedProtocolOb
 	 * @param vector2D vector whose magnitude and direction are used for initial
 	 *                 values
 	 */
-	public ForceNewtons(Vector2DValueType vector2D)
+	public ForceNewtons(Vector2D vector2D)
 	{
 		this(vector2D.value, vector2D.direction.value);
 	}
@@ -109,10 +109,10 @@ public class ForceNewtons extends Vector2DValueType implements StackedProtocolOb
 	 * @return force as sum of the specified forces
 	 */
 	@Operation
-	public static ForceNewtons sum(List<Vector2DValueType> forces)
+	public static ForceNewtons sum(List<Vector2D> forces)
 	{
 		ForceNewtons result = new ForceNewtons(0, 0);
-		result.setValue(Vector2DValueType.sum(forces));
+		result.setValue(Vector2D.sum(forces));
 		return result;
 	}
 

@@ -27,6 +27,6 @@ public class InteractionMessageTransmitter extends UDPTransmitter<InteractionMes
 	 */
 	public InteractionMessageTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "InteractionMessageTransmitter");
 	}
 }

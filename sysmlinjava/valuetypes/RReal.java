@@ -6,7 +6,7 @@ import sysmlinjava.probability.SysMLProbabilityDistribution;
 import sysmlinjava.units.SysMLinJavaUnits;
 
 /**
- * SysMLinJava value type for the SysMl Real represented by a java
+ * SysMLinJava value type for the SysML Real represented by a java
  * {@code double} value
  * <p>
  * This representation of the real number type is for a generic real as used in
@@ -14,15 +14,22 @@ import sysmlinjava.units.SysMLinJavaUnits;
  * is not the same as the java float, double, Float or Double types as SysML
  * does not discriminate between bit-lengths of real or floating- point numeric
  * types as the Java language does.
- * 
+ * <p>
+ * Note that the {@code Real} name is used by SysML/UML to represent real
+ * numbers. To prevent any confusion between this SysML {@code Real} and its
+ * representation in SysMLinJava, the double R is used in the {@code RReal}
+ * name, consistent with the double letters used for SysMLinJava's
+ * {@code BBoolean}, {@code IInteger}, and {@code SString} value types.
+ * <p>
  * <b>Note:</b> as an {@code ObservableValue} this value type can be "observed"
  * by other objects. {@code ValueObserver}s call the {@code addValueObserver()}
- * operation to be notiified (called-back) by the {@code Real} object of any
+ * operation to be notiified (called-back) by the {@code RReal} object of any
  * change in its value. This notification will only occur if and when the
  * {@code RReal} {@code value} is changed by a call to the {@code setValue()}
  * operation. So, while the {@code RReal.value} is publicly accessible and can
  * be changed by direct assignment, the {@code setValue()} operation must be
- * used if {@code ValueObserver}s are to be automaticall notified of the change.
+ * used if {@code ValueObserver}s are to be automatically notified of the
+ * change.
  * 
  * @author ModelerOne
  *
@@ -201,7 +208,18 @@ public class RReal extends SysMLValueType implements Serializable
 	}
 
 	/**
-	 * Returns new instance that is this value divided by specified real value
+	 * Returns new instance that is this value multiplied by specified double value
+	 * 
+	 * @param value double value to multiply this value by
+	 * @return instance of this value multiplied by specified value
+	 */
+	public RReal multipliedBy(double value)
+	{
+		return new RReal(this.value * value);
+	}
+
+	/**
+	 * Returns new instance that is this value divided by specified double value
 	 * 
 	 * @param value double value to divide this value by
 	 * @return instance of this value divided by specified value
@@ -405,6 +423,84 @@ public class RReal extends SysMLValueType implements Serializable
 	public static RReal of(double value)
 	{
 		return new RReal(value);
+	}
+
+	/**
+	 * Returns the numeric length of hypotenuse for right triangle of specified
+	 * opposite and adjacent sides
+	 * 
+	 * @param opposite length of one of the right sides
+	 * @param adjacent length of the other of the right sides
+	 * @return length of hypotenuse
+	 */
+	public static RReal hypotenuseOf(RReal opposite, RReal adjacent)
+	{
+		return new RReal(Math.sqrt(Math.pow(opposite.value, 2) + Math.pow(adjacent.value, 2)));
+	}
+
+	/**
+	 * Returns the numeric length of the opposite side for right triangle of
+	 * specified hypotenuse and angle
+	 * 
+	 * @param hypotenuse length of the hypotenuse
+	 * @param angle      radian angle opposite from side to be returned
+	 * @return length of side opposite the angle
+	 */
+	public static RReal oppositeOf(RReal hypotenuse, RReal angle)
+	{
+		return new RReal(hypotenuse.value * Math.sin(angle.value));
+	}
+
+	/**
+	 * Returns the numeric length of the adjacent side for right triangle of
+	 * specified hypotenuse and angle
+	 * 
+	 * @param hypotenuse length of the hypotenuse
+	 * @param angle      radian angle adjacent to side to be returned
+	 * @return length of side adjacent to the angle
+	 */
+	public static RReal adjacentOf(RReal hypotenuse, RReal angle)
+	{
+		return new RReal(hypotenuse.value * Math.cos(angle.value));
+	}
+
+	/**
+	 * Returns the radian angle for a right triangle with specified opposite and
+	 * adjacent sides
+	 * 
+	 * @param opposite length of side opposite the angle
+	 * @param adjacent length of side adjacent to the angle
+	 * @return radian angle
+	 */
+	public static RReal tanAngleOf(RReal opposite, RReal adjacent)
+	{
+		return new RReal(Math.atan(opposite.dividedBy(adjacent).value));
+	}
+
+	/**
+	 * Returns the radian angle for a right triangle with specified opposite side
+	 * and hypotenuse
+	 * 
+	 * @param opposite   length of side opposite the angle
+	 * @param hypotenuse length of hypotenuse
+	 * @return radian angle
+	 */
+	public static RReal sinAngleOf(RReal opposite, RReal hypotenuse)
+	{
+		return new RReal(Math.asin(opposite.dividedBy(hypotenuse).value));
+	}
+
+	/**
+	 * Returns the radian angle for a right triangle with specified adjacent side
+	 * and hypotenuse
+	 * 
+	 * @param adjacent   length of side adjacent to the angle
+	 * @param hypotenuse length of hypotenuse
+	 * @return radian angle
+	 */
+	public static RReal cosAngleOf(RReal adjacent, RReal hypotenuse)
+	{
+		return new RReal(Math.acos(adjacent.dividedBy(hypotenuse).value));
 	}
 
 	@Override

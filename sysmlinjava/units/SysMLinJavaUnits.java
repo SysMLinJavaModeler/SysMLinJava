@@ -542,4 +542,13 @@ public class SysMLinJavaUnits extends SysMLUnits
 			QuantityPerSecond, NewtonMeters, PoundFeet, NewtonsPerMeterSquare, PoundsPerInchSquare, KilogramsPerMeterCubic, PoundsPerFootCubic, KiloWattHours, KiloWattHoursPerKilometer, VoltAmperes, DegreesC, DegreesF,
 			KilojoulesPerKilogram, Point, KeyValuePair));
 	}
+
+	/**
+	 * Constructor - default, no initializations
+	 */
+	public SysMLinJavaUnits()
+	{
+		super();
+	}
+	
 }

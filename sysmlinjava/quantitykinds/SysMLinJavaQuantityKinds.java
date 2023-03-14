@@ -271,4 +271,12 @@ public final class SysMLinJavaQuantityKinds extends SysMLQuantityKinds
 			ThermalConductivity, EnergydDnsity, ElectricFieldStrength, ElectricChargeDensity, ElectricFluxDensity, Permittivity, Permeability, MolarEnergy, MolarHeatCapacity, Exposure, AbsorbedDoseRate, AngularVelocity, AngularAcceleration,
 			RadiantIntensity, Radiance, Coordinate, Current, Direction, Information, Jerk, LatentHeat, Distance, Money, Potential, Position, Quantity, Flow, Torque, Velocity, Viscosity, Weight, Work);
 	}
+
+	/**
+	 * Constructor - default, no initializations
+	 */
+	public SysMLinJavaQuantityKinds()
+	{
+		super();
+	}
 }

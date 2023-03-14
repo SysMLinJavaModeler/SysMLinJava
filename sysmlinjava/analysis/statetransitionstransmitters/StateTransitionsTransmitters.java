@@ -37,11 +37,11 @@ import sysmlinjava.statemachine.SysMLVertex;
  * 
  * <pre>
  * {@code
-	&#64;Override
-	protected void createTransitionsUtility()
-	{
-		transitionsUtility = Optional.of(new StateTransitionsTransmitters(Optional.of(new StateTransitionTablesTransmitter(StateTransitionsDisplay.udpPort)), Optional.empty()));
-	}
+ * &#64;Override
+ * protected void createTransitionsUtility()
+ * {
+ * 	transitionsUtility = Optional.of(new StateTransitionsTransmitters(Optional.of(new StateTransitionTablesTransmitter(StateTransitionsDisplay.udpPort)), Optional.empty()));
+ * }
  * }
  * </pre>
  * 
@@ -64,6 +64,12 @@ public class StateTransitionsTransmitters implements TransitionsUtility
 	 * {@code enableStateTransitionTimingsTransmission(int udpPort)} operation.
 	 */
 	private Optional<TimingDiagramsTransmitter> stateTimingDiagramsTransmitter;
+	/**
+	 * Indication if the strings that represent the state transitions are to be
+	 * logged to the console. If true, strings are logged to console, otherwise they
+	 * are not.
+	 */
+	private boolean logToConsole;
 
 	/**
 	 * Constructor - initial values
@@ -72,12 +78,17 @@ public class StateTransitionsTransmitters implements TransitionsUtility
 	 *                                         transition tables
 	 * @param stateTimingDiagramsTransmitter   optional transmitter of the state
 	 *                                         timing diagrams
+	 * @param logToConsole                     strings that represent the state
+	 *                                         transitions wll be logged to the
+	 *                                         console if true, will not be
+	 *                                         otherwise
 	 */
-	public StateTransitionsTransmitters(Optional<StateTransitionTablesTransmitter> stateTransitionTablesTransmitter, Optional<TimingDiagramsTransmitter> stateTimingDiagramsTransmitter)
+	public StateTransitionsTransmitters(Optional<StateTransitionTablesTransmitter> stateTransitionTablesTransmitter, Optional<TimingDiagramsTransmitter> stateTimingDiagramsTransmitter, boolean logToConsole)
 	{
 		super();
 		this.stateTransitionTablesTransmitter = stateTransitionTablesTransmitter;
 		this.stateTimingDiagramsTransmitter = stateTimingDiagramsTransmitter;
+		this.logToConsole = logToConsole;
 	}
 
 	@Override
@@ -85,7 +96,8 @@ public class StateTransitionsTransmitters implements TransitionsUtility
 		Optional<? extends SysMLEffect> effect, SysMLVertex nextState, Logger logger)
 	{
 		StateTransitionStrings strings = new StateTransitionStrings(contextBlock, currentState, currentEvent, transition, transition.guard, transition.effect, nextState);
-		logger.info(strings.logString());
+		if (logToConsole)
+			logger.info(strings.logString());
 		if (stateTransitionTablesTransmitter.isPresent())
 			stateTransitionTablesTransmitter.get().transmit(strings);
 		if (stateTimingDiagramsTransmitter.isPresent())
@@ -97,7 +109,8 @@ public class StateTransitionsTransmitters implements TransitionsUtility
 		Logger logger)
 	{
 		StateTransitionStrings strings = new StateTransitionStrings(contextBlock, initialState, initialTransition, initialTransition.effect, nextState);
-		logger.info(strings.logString());
+		if (logToConsole)
+			logger.info(strings.logString());
 		if (stateTransitionTablesTransmitter.isPresent())
 			stateTransitionTablesTransmitter.get().transmit(strings);
 		if (stateTimingDiagramsTransmitter.isPresent())

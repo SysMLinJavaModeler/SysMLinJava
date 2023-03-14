@@ -53,8 +53,6 @@ public class PrivateKey extends SysMLValueType
 				byte leftNib = (byte)i;
 				byte byteValue = (byte)((leftNib << 4) | rightNib);
 				stringByteMap.put(String.valueOf(chars), byteValue);
-				// System.out.println(String.format("i=%d (%02x) j=%d (%02x) value=%d (%02X)",
-				// i, leftNib, j, rightNib, value, value));
 			}
 	}
 

@@ -31,7 +31,7 @@ public class NeuralNetDisplayTransmitter extends UDPTransmitter2<NeuralNetDispla
 	 */
 	public NeuralNetDisplayTransmitter(int udpPort, boolean logToConsole)
 	{
-		super(udpPort, logToConsole);
+		super(udpPort, logToConsole, "NeuralNetDisplayTransmitter");
 	}
 
 	/**
