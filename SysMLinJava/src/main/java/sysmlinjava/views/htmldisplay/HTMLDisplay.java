@@ -1,0 +1,67 @@
+/*
+ * Copyright (C) 2026 SysMLinJava, LLC.
+ *
+ * This file is part of the SysMLinJava framework.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package sysmlinjava.views.htmldisplay;
+
+import sysmlinjava.views.SysMLRendering;
+
+/**
+ * The {@code HTMLDisplay} is a simple console application that receives
+ * {@code HTMLString}s via a UDP socket and displays the HTML text on the
+ * console.
+ * <p>
+ * <b>Note:</b> This simple text-based (console) display is part of the basic
+ * SysMLinJava tool set. More capable web browser-like displays are available
+ * commercially. See SysMLinJava.com for details.
+ * 
+ * @author ModelerOne
+ *
+ */
+public class HTMLDisplay extends SysMLRendering
+{
+	/**
+	 * Default port on which the UDP is to receive the HTML strings
+	 */
+	public static final int udpPort = 8891;
+	/**
+	 * Runnable that receives the HTML strings via UDP
+	 */
+	HTMLStringReceiver receiver;
+
+	/**
+	 * Constructor
+	 */
+	public HTMLDisplay()
+	{
+		super();
+		receiver = new HTMLStringReceiver(udpPort);
+	}
+
+	/**
+	 * Main for console process. Simply constructs the display and starts (runs) its
+	 * receiver which receives the HTML strings and displays them as toString()s to
+	 * the console.<br>
+	 * 
+	 * @param args null arguments
+	 */
+	public static void main(String[] args)
+	{
+		HTMLDisplay display = new HTMLDisplay();
+		display.receiver.run();
+		Runtime.getRuntime().exit(0);
+	}
+}
