@@ -47,8 +47,18 @@ public class TrafficSignalControlSystem extends SysMLPart
 	 */
 	@Attribute
 	public Optional<DirectionDegrees> emergencyVehicleDirection;
-
 	/**
+	 * Root requirement for system
+	 */
+	@Requirement
+	public SysMLRequirement rootRequirement;
+	/**
+	 * Capabilities issue for system modeling
+	 */
+	@Issue
+	public SysMLIssue capabilitiesIssue;
+
+/**
 	 * Constructor
 	 */
 	public TrafficSignalControlSystem()
@@ -72,6 +82,17 @@ public class TrafficSignalControlSystem extends SysMLPart
 		mainAt4th = new IntersectionSignalSystem(this, "MainAt4th", 4L);
 	}
 
+	@Override
+	protected void createRequirements()
+	{
+		rootRequirement = SystemRequirements.id1;
+	}
+
+	@Override
+	protected void createIssues()
+	{
+		capabilitiesIssue = SystemIssues.capabilities;
+	}
 	@Override
 	protected void createStateMachine()
 	{
