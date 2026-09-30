@@ -37,12 +37,12 @@ public class TrafficSignalControlSystem extends SysMLPart
 	public IntersectionSignalSystem mainAt4th;
 
 	/**
-	 * Value that indicates the presence of an emergency vehicle
+	 * Attribute that indicates the presence of an emergency vehicle
 	 */
 	@Attribute
 	public BBoolean emergencyVehiclePresent;
 	/**
-	 * Value that indicates the approaching direction of the emergency vehicle, if
+	 * Attribute that indicates the approaching direction of the emergency vehicle, if
 	 * present
 	 */
 	@Attribute
