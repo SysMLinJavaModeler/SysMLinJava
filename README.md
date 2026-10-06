@@ -139,7 +139,7 @@ SysMLinJava also provides supporting classes for extensive executable models to 
 SysMLinJava supports virtually all of the features of SysMLv2.  You can see the complete version of the above example model as well as other examples of complex SysMLinJava models in the SysMLinJavaExampleModels repository.  All the examples can be downloaded for review and imported into your IDE, and are fully executable.
 
 ## Example Models
-A number of examples SysML models using the SysMLinJava API are provided.  These examples demonstrate the use of SysMLinJava to develop precise, accurate, complete and fully executable models of complex systems.  They also serve as a starting point for development of models for systems of similar structure or behavior.  The example models can be found at
+A number of examples SysML models using the SysMLinJava API are provided.  These examples demonstrate the use of SysMLinJava to develop precise, accurate, complete and fully executable models of complex systems.  They also serve as a starting point for development of models for systems of similar structure or behavior.  The example models can be found at https://github.com/SysMLinJavaModeler/SysMLinJavaModelExamples.git
 
 ## How it works
 ### The SysMLinJava module
@@ -161,7 +161,7 @@ SysMLinJava uses the Apache license as shown above.  It has no dependencies beyo
 ### Option: Java Software Developer
 As a java-based modeling language, SysMLinJava necessarily requires the modeler also be capable of Java software development.  While most model-base systems engineers have software development skills, many do not.  SysMLinJava is based on the more commonly used syntax of the java language with no need for modelers to use the more advanced and essoteric constructs of Java.  In fact, the most advanced element of Java used for SysMLinJava modeling is the lambda expression used for activity specification.  Of course, for the more highly complex, multi-threaded/multi-process models, the SysMLinJava modeler will need to be familiar with the concurrency  aspects of Java.  SysMLinJava incorporates many of java's concurrency constructs in such a way that their use in modeling is relatively easy and straightforward.
 
-### Option: Java Software Developer as Co=Modeler
+### Option: Java Software Developer as Co-Modeler
 While some may find modeling in the Java language to be "a bridge too far", there is the alternative of obtaining the skills of a java-developer as a "co-modeler".  Oftentimes, systems engineers leverage the skills of java developers to code engineering analyses, reports, calculations, and experiments during traditional model development.  SysMLinJava affords the opportunity to leverage these java developers to assist in actual model development to achieve a more complete and precise executable system model.
 
 ### Option: Learn Java Software Develoment
