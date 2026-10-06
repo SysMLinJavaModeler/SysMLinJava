@@ -58,7 +58,7 @@ public class TrafficSignalControlSystem extends SysMLPart
 	@Issue
 	public SysMLIssue capabilitiesIssue;
 
-/**
+	/**
 	 * Constructor
 	 */
 	public TrafficSignalControlSystem()
@@ -138,6 +138,9 @@ SysMLinJava also provides supporting classes for extensive executable models to 
 
 SysMLinJava supports virtually all of the features of SysMLv2.  You can see the complete version of the above example model as well as other examples of complex SysMLinJava models in the SysMLinJavaExampleModels repository.  All the examples can be downloaded for review and imported into your IDE, and are fully executable.
 
+## Example Models
+A number of examples SysML models using the SysMLinJava API are provided.  These examples demonstrate the use of SysMLinJava to develop precise, accurate, complete and fully executable models of complex systems.  They also serve as a starting point for development of models for systems of similar structure or behavior.  The example models can be found at
+
 ## How it works
 ### The SysMLinJava module
 SysMLinJava is a java API that can be added as a project in an IDE.  It is a java module that can be used by java modules in other IDE projects to develop SysMLinJava models.  Typically, the modeler will create a project in the IDE with the SysMLinJava module as its sole content.  Another project will be created/used for the SysMLinJava model with a "requires transitive" dependency on the SysMLinJava module.
@@ -146,25 +149,29 @@ SysMLinJava is a java API that can be added as a project in an IDE.  It is a jav
 The modeler will typically develop the system model in an IDE project.  Model elements will be constructed as java classes that inherit/extend one of the SysMLinJava classes, e.g. `SysMLPart`, `StateMachine`, `SysMLAttributeType`, `SysMLPort`, etc.  The model elements will be aggregated in a "domain" class that contains all elements as SysML "parts" of the domain such as the system of interest as well as all the other systems with which it interfaces.  Alternatively, the domain class could be replaced by a `SysMLVerificationCase` class that constructs and executes the model as a SysML test/test case.  In any case, the SysMLinJava model classes are compiled and linked into an executable process or processes, each potentiallly executing as multiple threads representing asynchronously behaving objects in the system and its domain.
 
 ### Parametric Analysis
-Extensive capabilities for parametric analysis are also supported by the SysMLinJava API.  The `SysMLParametricAnalysis` provides a base class for all parametric analysis modeling in SysMLinJava.  The parametric analysis case supports "bound" parameters as well as analysis heirarchies.  In addition, the parametric analysis case can be configured to operate asynchronously enabling extensive parameteric analysis with parameters that update asychrounously from other bound parameters and from the parametric analysis case.
+Extensive capabilities for parametric analysis are also supported by the SysMLinJava API.  The `SysMLParametricAnalysis` provides a base class for all parametric analysis modeling in SysMLinJava.  The parametric analysis case supports "bound" parameters as well as analysis heirarchies.  In addition, the parametric analysis case can be configured to operate asynchronously enabling extensive parameteric analysis with parameters that update asychronously from other bound parameters and from the parametric analysis case.
 
-## Documentation
+### Documentation
 The SysMLinJava code includes full javadoc comments, which you can view in the code.  And a directory of the full javadocs is provided at the base of the master branch.  You can download this directory into your IDE for ready reference.
 
-## Dependencies and License
+### Dependencies and License
 SysMLinJava uses the Apache license as shown above.  It has no dependencies beyond the modules of the Java SDK itself.  This version of SysMLinJava has been successfully tested and used on OpenJDK 27.
 
 ## Skills Needed
+### Option: Java Software Developer
 As a java-based modeling language, SysMLinJava necessarily requires the modeler also be capable of Java software development.  While most model-base systems engineers have software development skills, many do not.  SysMLinJava is based on the more commonly used syntax of the java language with no need for modelers to use the more advanced and essoteric constructs of Java.  In fact, the most advanced element of Java used for SysMLinJava modeling is the lambda expression used for activity specification.  Of course, for the more highly complex, multi-threaded/multi-process models, the SysMLinJava modeler will need to be familiar with the concurrency  aspects of Java.  SysMLinJava incorporates many of java's concurrency constructs in such a way that their use in modeling is relatively easy and straightforward.
 
+### Option: Java Software Developer as Co=Modeler
 While some may find modeling in the Java language to be "a bridge too far", there is the alternative of obtaining the skills of a java-developer as a "co-modeler".  Oftentimes, systems engineers leverage the skills of java developers to code engineering analyses, reports, calculations, and experiments during traditional model development.  SysMLinJava affords the opportunity to leverage these java developers to assist in actual model development to achieve a more complete and precise executable system model.
 
+### Option: Learn Java Software Develoment
 There is the option of the SysML modeler learning to program in java.  There are a myriad of free java training websites available and popular java IDE's provide extensive assistance and help in developing, building, and executing java programs.  In any case, there are numerous options for the SysML modeler to be able to leverage the power of SysMLinJava for high precision model-based systems engineering.
 
+### Option: SysMLinJava Staff Assist/Train
 Finally, there is the option of obtaining the assistance of the SysMLinJava developers themselves to actually develop the models for the system engineer.  SyMLinJava LLC staff are experts in SysML modeling and can deliver complete, correct, and easy to understand fully executable system models at relatively low cost. This assistance can be evaluated and obtained at SysMLinJava.com.
 
 ## Future Work
-SysMLinJava is quite capabile now, but there are plans extend it in terms of its support for java-based SysML modeling.  Planned extensions include more attributeTypes, more support for distributed processes across the internet, and more tool support for faster/cheaper development of the various model elements.  In the near term, a free tool is be available that automates model execution and provides a set of graphical displays (state charts, sequence diagrams, timing diagrams, line charts, animations, etc) that can be accessed by the model to display model execution parameters and behaviors.  The tool also provides capabilities to export the model to XMI, generate system requirements from the system model, generate reports on the model's contents, and generate SysMLinJava code from modeler-provided element "forms".  Also, a SysMLinJava web site that provides more information and support for the SysMLinJava API will be available soon.
+SysMLinJava is quite capable now, but there are plans to extend it in terms of its support for java-based SysML modeling.  Planned extensions include more attributeTypes, more support for distributed processes across the internet, and more tool support for faster/cheaper development of the various model elements.  In the near term, a free tool will be available that automates model execution and provides a set of graphical displays (state charts, sequence diagrams, timing diagrams, line charts, animations, etc) that can be accessed by the model to display model execution parameters and behaviors.  The tool also provides capabilities to export the model to XMI, generate system requirements from the system model, generate reports on the model's contents, and generate SysMLinJava code from modeler-provided element "forms".  Also, a SysMLinJava web site that provides more information and support for the SysMLinJava API will be available soon.
 
 ## Contact for Comments, Questions, Requests for Assistance or Training
 Comments, questions, or requests for assistance or training can be sent to sysmlinjava@earthlink.net.
